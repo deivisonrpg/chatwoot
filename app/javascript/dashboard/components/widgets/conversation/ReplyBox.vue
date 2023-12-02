@@ -9,6 +9,7 @@
       :action-button-label="$t('CONVERSATION.ASSIGN_TO_ME')"
       @click="onClickSelfAssign"
     />
+    <div v-if="!showSelfAssignBanner">
     <reply-top-panel
       :mode="replyType"
       :set-reply-mode="setReplyMode"
@@ -17,6 +18,7 @@
       :popout-reply-box="popoutReplyBox"
       @click="$emit('click')"
     />
+    
     <div class="reply-box__top">
       <canned-response
         v-if="showMentions && hasSlashCommand"
@@ -139,6 +141,7 @@
       :title="$t('CONVERSATION.REPLYBOX.UNDEFINED_VARIABLES.TITLE')"
       :description="undefinedVariableMessage"
     />
+  </div>
   </div>
 </template>
 
@@ -289,14 +292,10 @@ export default {
       },
     },
     showSelfAssignBanner() {
-      if (this.message !== '' && !this.isOnPrivateNote) {
-        if (!this.assignedAgent) {
+
+        if (!this.assignedAgent || this.assignedAgent.id !== this.currentUser.id) {
           return true;
-        }
-        if (this.assignedAgent.id !== this.currentUser.id) {
-          return true;
-        }
-      }
+        }      
 
       return false;
     },
@@ -711,6 +710,7 @@ export default {
         role,
         thumbnail: avatar_url,
       };
+      bus.$emit("change_tab_due_assigned_agent");
       this.assignedAgent = selfAssign;
     },
     confirmOnSendReply() {

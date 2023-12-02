@@ -65,7 +65,7 @@
           />
         </div>
         <woot-button
-          v-hide="currentUserRole === 'agent'"
+          v-show="currentUserRole != 'agent'"
           v-else
           v-tooltip.right="$t('FILTER.TOOLTIP_LABEL')"
           variant="smooth"
@@ -535,6 +535,10 @@ export default {
 
     bus.$on('fetch_conversation_stats', () => {
       this.$store.dispatch('conversationStats/get', this.conversationFilters);
+    });
+
+    bus.$on('change_tab_due_assigned_agent', () => {
+      this.activeAssigneeTab = wootConstants.ASSIGNEE_TYPE.ME
     });
   },
   methods: {
