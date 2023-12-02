@@ -51,7 +51,7 @@ class Seeders::AccountSeeder
       user_record = User.create_with(name: user['name'], password: 'Password1!.').find_or_create_by!(email: (user['email']).to_s)
       user_record.skip_confirmation!
       user_record.save!
-      Avatar::AvatarFromUrlJob.perform_later(user_record, "https://xsgames.co/randomusers/avatar.php?g=#{user['gender']}")
+      Avatar::AvatarFromUrlJob.perform_later(user_record, "https://ui-avatars.com/api/?background=random")
       AccountUser.create_with(role: (user['role'] || 'agent')).find_or_create_by!(account_id: @account.id, user_id: user_record.id)
       next if user['team'].blank?
 
@@ -75,7 +75,7 @@ class Seeders::AccountSeeder
   def seed_contacts
     @account_data['contacts'].each do |contact_data|
       contact = @account.contacts.create!(contact_data.slice('name', 'email'))
-      Avatar::AvatarFromUrlJob.perform_later(contact, "https://xsgames.co/randomusers/avatar.php?g=#{contact_data['gender']}")
+      Avatar::AvatarFromUrlJob.perform_later(contact, "https://ui-avatars.com/api/?background=random")
       contact_data['conversations'].each do |conversation_data|
         inbox = @account.inboxes.find_by(channel_type: conversation_data['channel'])
         contact_inbox = inbox.contact_inboxes.create!(contact: contact, source_id: (conversation_data['source_id'] || SecureRandom.hex))

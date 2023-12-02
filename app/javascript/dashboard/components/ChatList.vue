@@ -65,6 +65,7 @@
           />
         </div>
         <woot-button
+          v-hide="currentUserRole === 'agent'"
           v-else
           v-tooltip.right="$t('FILTER.TOOLTIP_LABEL')"
           variant="smooth"
@@ -290,6 +291,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      currentUserRole: 'getCurrentRole',
       currentChat: 'getSelectedChat',
       currentUser: 'getCurrentUser',
       chatLists: 'getAllConversations',
@@ -343,8 +345,12 @@ export default {
       const ASSIGNEE_TYPE_TAB_KEYS = {
         me: 'mineCount',
         unassigned: 'unAssignedCount',
-        all: 'allCount',
       };
+
+      if (this.currentUserRole === 'administrator') {
+        ASSIGNEE_TYPE_TAB_KEYS.all = 'allCount';
+      }
+
       return Object.keys(ASSIGNEE_TYPE_TAB_KEYS).map(key => {
         const count = this.conversationStats[ASSIGNEE_TYPE_TAB_KEYS[key]] || 0;
         return {
@@ -405,8 +411,15 @@ export default {
     },
     conversationListPagination() {
       const conversationsPerPage = 25;
+
+      const hasChatsOnView =
+        this.chatsOnView &&
+        Array.isArray(this.chatsOnView) &&
+        !this.chatsOnView.length;
+
       const isNoFiltersOrFoldersAndChatListNotEmpty =
-        !this.hasAppliedFiltersOrActiveFolders && this.chatsOnView !== [];
+        !this.hasAppliedFiltersOrActiveFolders && hasChatsOnView;
+        
       const isUnderPerPage =
         this.chatsOnView.length < conversationsPerPage &&
         this.activeAssigneeTabCount < conversationsPerPage &&
@@ -531,6 +544,11 @@ export default {
       this.$store.dispatch('conversationPage/reset');
       this.$store.dispatch('emptyAllConversations');
       this.fetchFilteredConversations(payload);
+      const isAvailableForTheUser =
+        this.currentUserRole === 'administrator' ? true : false;
+      if (isAvailableForTheUser) {
+        ASSIGNEE_TYPE_TAB_KEYS.all = 'allCount';
+      }
     },
     onUpdateSavedFilter(payload, folderName) {
       const payloadData = {
@@ -554,6 +572,10 @@ export default {
       this.showDeleteFoldersModal = false;
     },
     onToggleAdvanceFiltersModal() {
+      if (this.currentUserRole === 'agent') {
+        this.showAdvancedFilters = false;
+        return;
+      }
       if (!this.hasAppliedFilters && !this.hasActiveFolders) {
         this.initializeExistingFilterToModal();
       }
@@ -638,10 +660,8 @@ export default {
     },
     handleKeyEvents(e) {
       if (hasPressedAltAndJKey(e)) {
-        const {
-          allConversations,
-          activeConversationIndex,
-        } = this.getKeyboardListenerParams();
+        const { allConversations, activeConversationIndex } =
+          this.getKeyboardListenerParams();
         if (activeConversationIndex === -1) {
           allConversations[0].click();
         }

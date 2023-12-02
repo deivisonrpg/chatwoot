@@ -115,7 +115,17 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   end
 
   def conversation
-    @conversation ||= Current.account.conversations.find_by!(display_id: params[:id])
+    #Rails.logger.info("Conversation params: #{params.inspect}")
+    #Rails.logger.info("@current_user params: #{@current_user.inspect}")
+    #Rails.logger.info("current_user params: #{current_user.inspect}")
+    #Rails.logger.info("Current.account params: #{Current.account.inspect}")
+    #Rails.logger.info("Current.account.conversations params: #{Current.account.conversations.inspect}")
+
+    if !current_user.administrator?
+      @conversation ||= Current.account.conversations.find_by!("display_id = ? and (assignee_id = ? or assignee_id is null)", params[:id], current_user.id)
+    else
+      @conversation ||= Current.account.conversations.find_by!("display_id = ?", params[:id])
+    end
     authorize @conversation.inbox, :show?
   end
 

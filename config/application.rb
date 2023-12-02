@@ -31,6 +31,8 @@ module Chatwoot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    #config.web_console.whitelisted_ips = '127.0.0.1, ::1, 172.18.0.1'
+    config.web_console.permissions = %w( 172.0.0.0/7 127.0.0.1 )
 
     config.eager_load_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('enterprise/lib')
