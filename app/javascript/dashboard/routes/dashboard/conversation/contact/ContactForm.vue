@@ -25,32 +25,7 @@
           />
         </label>
 
-        <label :class="{ error: $v.email.$error }">
-          {{ $t('CONTACT_FORM.FORM.EMAIL_ADDRESS.LABEL') }}
-          <input
-            v-model.trim="email"
-            type="text"
-            :placeholder="$t('CONTACT_FORM.FORM.EMAIL_ADDRESS.PLACEHOLDER')"
-            @input="$v.email.$touch"
-          />
-          <span v-if="$v.email.$error" class="message">
-            {{ $t('CONTACT_FORM.FORM.EMAIL_ADDRESS.ERROR') }}
-          </span>
-        </label>
-      </div>
-    </div>
-    <div class="medium-12 columns">
-      <label :class="{ error: $v.description.$error }">
-        {{ $t('CONTACT_FORM.FORM.BIO.LABEL') }}
-        <textarea
-          v-model.trim="description"
-          type="text"
-          :placeholder="$t('CONTACT_FORM.FORM.BIO.PLACEHOLDER')"
-          @input="$v.description.$touch"
-        />
-      </label>
-    </div>
-    <div class="row">
+        <div class="row">
       <div class="medium-12 columns">
         <label
           :class="{
@@ -78,6 +53,31 @@
           {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.HELP') }}
         </div>
       </div>
+    </div>
+        <label :class="{ error: $v.email.$error }">
+          {{ $t('CONTACT_FORM.FORM.EMAIL_ADDRESS.LABEL') }}
+          <input
+            v-model.trim="email"
+            type="text"
+            :placeholder="$t('CONTACT_FORM.FORM.EMAIL_ADDRESS.PLACEHOLDER')"
+            @input="$v.email.$touch"
+          />
+          <span v-if="$v.email.$error" class="message">
+            {{ $t('CONTACT_FORM.FORM.EMAIL_ADDRESS.ERROR') }}
+          </span>
+        </label>
+      </div>
+    </div>
+    <div class="medium-12 columns">
+      <label :class="{ error: $v.description.$error }">
+        {{ $t('CONTACT_FORM.FORM.BIO.LABEL') }}
+        <textarea
+          v-model.trim="description"
+          type="text"
+          :placeholder="$t('CONTACT_FORM.FORM.BIO.PLACEHOLDER')"
+          @input="$v.description.$touch"
+        />
+      </label>
     </div>
     <woot-input
       v-model.trim="companyName"
@@ -112,7 +112,7 @@
       :label="$t('CONTACT_FORM.FORM.CITY.LABEL')"
       :placeholder="$t('CONTACT_FORM.FORM.CITY.PLACEHOLDER')"
     />
-
+    
     <div class="medium-12 columns">
       <label>
         Social Profiles
@@ -255,6 +255,9 @@ export default {
   mounted() {
     this.setContactObject();
     this.setDialCode();
+    bus.$on('contact_created', (contact) => {
+      this.$router.push(`/app/accounts/${this.$route.params.accountId}/contacts/${contact.id}`);
+    })
   },
   methods: {
     onCancel() {

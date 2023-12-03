@@ -333,6 +333,7 @@ export default {
           this.$t('NEW_CONVERSATION.FORM.SUCCESS_MESSAGE'),
           action
         );
+        this.$router.push(`/app/accounts/${data.account_id}/conversations/${data.id}`);
       } catch (error) {
         if (error instanceof ExceptionWithMessage) {
           this.showAlert(error.data);

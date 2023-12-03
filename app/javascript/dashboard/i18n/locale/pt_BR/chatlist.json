@@ -18,6 +18,16 @@
       "unassigned": "Não atribuída",
       "all": "Todos"
     },
+    "CHAT_TIME_STAMP": {
+      "CREATED": {
+        "LATEST": "Criado",
+        "OLDEST": "Criado em:"
+      },
+      "LAST_ACTIVITY": {
+        "NOT_ACTIVE": "Última atividade:",
+        "ACTIVE": "Última atividade"
+      }
+    },
     "CHAT_STATUS_FILTER_ITEMS": {
       "open": {
         "TEXT": "Abertas"
@@ -36,14 +46,14 @@
       }
     },
     "VIEW_FILTER": "Visualizar",
-    "SORT_TOOLTIP_LABEL": "Sort conversations",
+    "SORT_TOOLTIP_LABEL": "Classificar conversas",
     "CHAT_SORT": {
-      "STATUS": "SItuação",
-      "ORDER_BY": "Order by"
+      "STATUS": "Situação",
+      "ORDER_BY": "Ordenar por"
     },
     "CHAT_SORT_FILTER_ITEMS": {
       "latest": {
-        "TEXT": "Last activity"
+        "TEXT": "Última atividade"
       },
       "sort_on_created_at": {
         "TEXT": "Criado em"
@@ -70,20 +80,20 @@
       }
     },
     "CHAT_SORT_BY_FILTER": {
-      "TITLE": "Sort conversation",
+      "TITLE": "Classificar conversa",
       "DROPDOWN_TITLE": "Ordenar por",
       "ITEMS": {
         "LATEST": {
-          "NAME": "Last activity at",
-          "LABEL": "Last activity"
+          "NAME": "Última atividade em",
+          "LABEL": "Última atividade"
         },
         "CREATED_AT": {
           "NAME": "Criado em",
           "LABEL": "Criado em"
         },
         "LAST_USER_MESSAGE_AT": {
-          "NAME": "Last user message at",
-          "LABEL": "Last message"
+          "NAME": "Última mensagem do usuário em",
+          "LABEL": "Última mensagem"
         }
       }
     },

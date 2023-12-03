@@ -93,7 +93,7 @@ export default {
     return {
       countries: [
         {
-          name: 'Select Country',
+          name: 'Selecione um país',
           dial_code: '',
           emoji: '',
           id: '',
@@ -103,8 +103,8 @@ export default {
       selectedIndex: -1,
       showDropdown: false,
       searchCountry: '',
-      activeCountryCode: '',
-      activeDialCode: '',
+      activeCountryCode: 'BR',
+      activeDialCode: '+55',
       phoneNumber: this.value,
     };
   },
@@ -209,6 +209,7 @@ export default {
       this.activeDialCode = country.dial_code;
       this.$emit('setCode', country.dial_code);
       this.closeDropdown();
+      console.log(JSON.stringify(country));
     },
     setActiveCountry() {
       const { phoneNumber } = this;

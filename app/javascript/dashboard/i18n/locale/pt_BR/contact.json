@@ -73,6 +73,13 @@
     "SUCCESS_MESSAGE": "Contatos salvos com sucesso",
     "ERROR_MESSAGE": "Ocorreu um erro, por favor tente novamente"
   },
+  "EXPORT_CONTACTS": {
+    "BUTTON_LABEL": "Exportar",
+    "TITLE": "Exportar Contatos",
+    "DESC": "Exportar contatos para im arquivo CSV.",
+    "SUCCESS_MESSAGE": "A exportação está em andamento. Você será notificado por e-mail quando o arquivo de exportação estiver pronto para download.",
+    "ERROR_MESSAGE": "Ocorreu um erro, tente novamente"
+  },
   "DELETE_NOTE": {
     "CONFIRM": {
       "TITLE": "Confirmar exclusão",
@@ -223,7 +230,7 @@
         "CREATED_AT": "Criado em",
         "COUNTRY": "País/região",
         "CITY": "Cidade",
-        "SOCIAL_PROFILES": "Social Profiles",
+        "SOCIAL_PROFILES": "Redes Sociais",
         "COMPANY": "Empresa",
         "EMAIL_ADDRESS": "Endereço de e-mail"
       },
