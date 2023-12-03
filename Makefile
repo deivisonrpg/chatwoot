@@ -1,5 +1,5 @@
 # Variables
-APP_NAME := chatwoot
+APP_NAME := deivisonrpg/custom-chatwoot:V2.18.1
 RAILS_ENV ?= development
 
 # Targets

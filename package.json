@@ -1,6 +1,6 @@
 {
   "name": "@chatwoot/chatwoot",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "license": "MIT",
   "scripts": {
     "pretest": "rimraf .jest-cache",
