@@ -5,7 +5,6 @@
     class="app-wrapper app-root"
     :class="{ 'app-rtl--wrapper': isRTLView }"
   >
-    <update-banner :latest-chatwoot-version="latestChatwootVersion" />
     <transition name="fade" mode="out-in">
       <router-view />
     </transition>
@@ -24,7 +23,6 @@ import { mapGetters } from 'vuex';
 import AddAccountModal from '../dashboard/components/layout/sidebarComponents/AddAccountModal';
 import LoadingState from './components/widgets/LoadingState.vue';
 import NetworkNotification from './components/NetworkNotification';
-import UpdateBanner from './components/app/UpdateBanner.vue';
 import vueActionCable from './helper/actionCable';
 import WootSnackbarBox from './components/SnackbarContainer';
 import rtlMixin from 'shared/mixins/rtlMixin';
@@ -40,7 +38,6 @@ export default {
     AddAccountModal,
     LoadingState,
     NetworkNotification,
-    UpdateBanner,
     WootSnackbarBox,
   },
 

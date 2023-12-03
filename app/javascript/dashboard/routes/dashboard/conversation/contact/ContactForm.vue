@@ -1,16 +1,14 @@
 <template>
   <form class="contact--form" @submit.prevent="handleSubmit">
-    <div class="row">
-      <div class="columns">
-        <woot-avatar-uploader
-          :label="$t('CONTACT_FORM.FORM.AVATAR.LABEL')"
-          :src="avatarUrl"
-          :username-avatar="name"
-          :delete-avatar="!!avatarUrl"
-          class="settings-item"
-          @change="handleImageUpload"
-          @onAvatarDelete="handleAvatarDelete"
+    <div class="modal-footer upper-modal-actions">
+      <div class="medium-12 columns">
+        <woot-submit-button
+          :loading="inProgress"
+          :button-text="$t('CONTACT_FORM.FORM.SUBMIT')"
         />
+        <button class="button clear" @click.prevent="onCancel">
+          {{ $t('CONTACT_FORM.FORM.CANCEL') }}
+        </button>
       </div>
     </div>
     <div class="row">
@@ -26,34 +24,34 @@
         </label>
 
         <div class="row">
-      <div class="medium-12 columns">
-        <label
-          :class="{
-            error: isPhoneNumberNotValid,
-          }"
-        >
-          {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.LABEL') }}
-          <woot-phone-input
-            v-model="phoneNumber"
-            :value="phoneNumber"
-            :error="isPhoneNumberNotValid"
-            :placeholder="$t('CONTACT_FORM.FORM.PHONE_NUMBER.PLACEHOLDER')"
-            @input="onPhoneNumberInputChange"
-            @blur="$v.phoneNumber.$touch"
-            @setCode="setPhoneCode"
-          />
-          <span v-if="isPhoneNumberNotValid" class="message">
-            {{ phoneNumberError }}
-          </span>
-        </label>
-        <div
-          v-if="isPhoneNumberNotValid || !phoneNumber"
-          class="callout small warning"
-        >
-          {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.HELP') }}
+          <div class="medium-12 columns">
+            <label
+              :class="{
+                error: isPhoneNumberNotValid,
+              }"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.LABEL') }}
+              <woot-phone-input
+                v-model="phoneNumber"
+                :value="phoneNumber"
+                :error="isPhoneNumberNotValid"
+                :placeholder="$t('CONTACT_FORM.FORM.PHONE_NUMBER.PLACEHOLDER')"
+                @input="onPhoneNumberInputChange"
+                @blur="$v.phoneNumber.$touch"
+                @setCode="setPhoneCode"
+              />
+              <span v-if="isPhoneNumberNotValid" class="message">
+                {{ phoneNumberError }}
+              </span>
+            </label>
+            <div
+              v-if="isPhoneNumberNotValid || !phoneNumber"
+              class="callout small warning"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.HELP') }}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
         <label :class="{ error: $v.email.$error }">
           {{ $t('CONTACT_FORM.FORM.EMAIL_ADDRESS.LABEL') }}
           <input
@@ -112,7 +110,7 @@
       :label="$t('CONTACT_FORM.FORM.CITY.LABEL')"
       :placeholder="$t('CONTACT_FORM.FORM.CITY.PLACEHOLDER')"
     />
-    
+
     <div class="medium-12 columns">
       <label>
         Social Profiles
@@ -130,7 +128,20 @@
         />
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="row">
+      <div class="columns">
+        <woot-avatar-uploader
+          :label="$t('CONTACT_FORM.FORM.AVATAR.LABEL')"
+          :src="avatarUrl"
+          :username-avatar="name"
+          :delete-avatar="!!avatarUrl"
+          class="settings-item"
+          @change="handleImageUpload"
+          @onAvatarDelete="handleAvatarDelete"
+        />
+      </div>
+    </div>
+    <div class="modal-footer upper-modal-actions">
       <div class="medium-12 columns">
         <woot-submit-button
           :loading="inProgress"
@@ -255,9 +266,11 @@ export default {
   mounted() {
     this.setContactObject();
     this.setDialCode();
-    bus.$on('contact_created', (contact) => {
-      this.$router.push(`/app/accounts/${this.$route.params.accountId}/contacts/${contact.id}`);
-    })
+    bus.$on('contact_created', contact => {
+      this.$router.push(
+        `/app/accounts/${this.$route.params.accountId}/contacts/${contact.id}`
+      );
+    });
   },
   methods: {
     onCancel() {
@@ -420,9 +433,15 @@ export default {
 <style scoped lang="scss">
 .contact--form {
   padding: var(--space-normal) var(--space-large) var(--space-large);
-
   .columns {
     padding: 0 var(--space-smaller);
+  }
+  .upper-modal-actions {
+    padding: 1rem 0.6rem;
+    background-color: rgba(255, 228, 196, 0.514);
+    margin-bottom: var(--space-normal);
+    border-radius: 0.8rem;
+
   }
 }
 
