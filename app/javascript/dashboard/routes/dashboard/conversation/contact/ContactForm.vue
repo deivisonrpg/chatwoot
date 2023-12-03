@@ -266,7 +266,7 @@ export default {
   mounted() {
     this.setContactObject();
     this.setDialCode();
-    bus.$on('contact_created', contact => {
+    bus.$on('custom_contact_created', contact => {
       this.$router.push(
         `/app/accounts/${this.$route.params.accountId}/contacts/${contact.id}`
       );

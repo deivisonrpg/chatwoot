@@ -87,8 +87,11 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onAssigneeChanged = payload => {
     const { id } = payload;
+    //console.log('onAssigneeChanged: ', JSON.stringify(payload));
     if (id) {
+      
       this.app.$store.dispatch('updateConversation', payload);
+      //bus.$emit('custom_assignee_changed', payload);
     }
     this.fetchConversationStats();
   };

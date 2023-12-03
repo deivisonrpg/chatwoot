@@ -122,7 +122,7 @@ export const actions = {
       commit(types.SET_CONTACT_ITEM, response.data.payload.contact);
       commit(types.SET_CONTACT_UI_FLAG, { isCreating: false });
       //console.log(JSON.stringify(response))
-      bus.$emit("contact_created",response.data.payload.contact);
+      bus.$emit('custom_contact_created',response.data.payload.contact);
       return response.data.payload.contact;
     } catch (error) {
       commit(types.SET_CONTACT_UI_FLAG, { isCreating: false });

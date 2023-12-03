@@ -76,6 +76,7 @@ export default {
     ...mapGetters({
       chatList: 'getAllConversations',
       currentChat: 'getSelectedChat',
+      //currentUserID: 'getCurrentUserID',
     }),
     showConversationList() {
       return this.isOnExpandedLayout ? !this.conversationId : true;
@@ -114,6 +115,20 @@ export default {
     this.$watch('chatList.length', () => {
       this.setActiveChat();
     });
+    /*bus.$on('custom_assignee_changed', (payload) => {
+      
+      //console.log('custom_assignee_changed');
+      //console.log('this.currentChat.id: ', this.currentChat.id);
+      //console.log('payload.conversation_id: ', payload.id);
+      //console.log('payload.assignee_id: ', payload.meta.assignee?.id);
+      //console.log('this.$store.state.current_user.id: ', this.currentUserID);
+      
+      if(this.currentChat.id === payload.id && !(payload.meta.assignee?.id == this.currentUserID || payload.meta.assignee?.id === null)) {
+        console.log('custom_assignee_changed inside if');
+        this.$store.dispatch('clearSelectedState');
+
+      }
+    });*/
   },
 
   methods: {

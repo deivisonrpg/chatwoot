@@ -710,7 +710,7 @@ export default {
         role,
         thumbnail: avatar_url,
       };
-      bus.$emit('change_tab_due_assigned_agent');
+      bus.$emit('custom_change_tab_due_assigned_agent');
       this.assignedAgent = selfAssign;
     },
     confirmOnSendReply() {

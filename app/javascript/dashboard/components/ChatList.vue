@@ -537,7 +537,7 @@ export default {
       this.$store.dispatch('conversationStats/get', this.conversationFilters);
     });
 
-    bus.$on('change_tab_due_assigned_agent', () => {
+    bus.$on('custom_change_tab_due_assigned_agent', () => {
       this.activeAssigneeTab = wootConstants.ASSIGNEE_TYPE.ME
     });
   },
