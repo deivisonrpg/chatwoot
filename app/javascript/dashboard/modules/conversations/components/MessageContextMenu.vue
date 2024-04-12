@@ -62,7 +62,7 @@
           variant="icon"
           @click="handleCopy"
         />
-        <menu-item
+        <!--<menu-item
           v-if="enabledOptions['copy']"
           :option="{
             icon: 'translate',
@@ -70,7 +70,7 @@
           }"
           variant="icon"
           @click="handleTranslate"
-        />
+        /> -->
         <hr />
         <menu-item
           :option="{
@@ -81,7 +81,7 @@
           @click="copyLinkToMessage"
         />
         <menu-item
-          v-if="enabledOptions['cannedResponse']"
+          v-if="enabledOptions['cannedResponse'] && isAdmin"
           :option="{
             icon: 'comment-add',
             label: $t('CONVERSATION.CONTEXT_MENU.CREATE_A_CANNED_RESPONSE'),
