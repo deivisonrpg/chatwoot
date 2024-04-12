@@ -137,7 +137,12 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   end
 
   def conversation
-    @conversation ||= Current.account.conversations.find_by!(display_id: params[:id])
+    @conversation ||= if current_user.administrator?
+                        Current.account.conversations.find_by!('display_id = ?', params[:id])
+                      else
+                        Current.account.conversations.find_by!('display_id = ? and (assignee_id = ? or assignee_id is null)', params[:id],
+                                                               current_user.id)
+                      end
     authorize @conversation.inbox, :show?
   end
 

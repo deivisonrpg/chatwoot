@@ -25,20 +25,38 @@ class SearchService
   end
 
   def filter_conversations
-    @conversations = current_account.conversations.where(inbox_id: accessable_inbox_ids)
-                                    .joins('INNER JOIN contacts ON conversations.contact_id = contacts.id')
-                                    .where("cast(conversations.display_id as text) ILIKE :search OR contacts.name ILIKE :search OR contacts.email
-                            ILIKE :search OR contacts.phone_number ILIKE :search OR contacts.identifier ILIKE :search", search: "%#{search_query}%")
-                                    .order('conversations.created_at DESC')
-                                    .limit(10)
+    if @current_user.administrator?
+      @conversations = current_account.conversations.where(inbox_id: accessable_inbox_ids)
+                                      .joins('INNER JOIN contacts ON conversations.contact_id = contacts.id')
+                                      .where("cast(conversations.display_id as text) ILIKE :search OR contacts.name ILIKE :search OR contacts.email
+ILIKE :search OR contacts.phone_number ILIKE :search OR contacts.identifier ILIKE :search", search: "%#{search_query}%")
+                                      .order('conversations.created_at DESC')
+                                      .limit(10)
+    else
+      @conversations = current_account.conversations.where(inbox_id: accessable_inbox_ids)
+                                      .joins('INNER JOIN contacts ON conversations.contact_id = contacts.id')
+                                      .where("(cast(conversations.display_id as text) ILIKE :search OR contacts.name ILIKE :search OR contacts.email
+ILIKE :search OR contacts.phone_number ILIKE :search OR contacts.identifier ILIKE :search) and (conversations.assignee_id is null or (conversations.assignee_id is not null and EXISTS (select 1 from conversation_participants where conversation_participants.user_id = :user_id and conversation_participants.account_id = conversations.account_id and conversation_participants.conversation_id = conversations.id)))", search: "%#{search_query}%", user_id: @current_user.id)
+                                      .order('conversations.created_at DESC')
+                                      .limit(10)
+    end
   end
 
   def filter_messages
-    @messages = current_account.messages.where(inbox_id: accessable_inbox_ids)
-                               .where('messages.content ILIKE :search', search: "%#{search_query}%")
-                               .where('created_at >= ?', 3.months.ago)
-                               .reorder('created_at DESC')
-                               .limit(10)
+    if @current_user.administrator?
+      @messages = current_account.messages.where(inbox_id: accessable_inbox_ids)
+                                 .where('messages.content ILIKE :search', search: "%#{search_query}%")
+                                 .where('created_at >= ?', 3.months.ago)
+                                 .reorder('created_at DESC')
+                                 .limit(10)
+    else
+      @messages = current_account.messages.where(inbox_id: accessable_inbox_ids)
+                                 .joins('inner join conversations on (conversations.id = messages.conversation_id and conversations.account_id = messages.account_id and conversations.inbox_id = messages.inbox_id)')
+                                 .where('messages.content ILIKE :search and (conversations.assignee_id is null or (conversations.assignee_id is not null and EXISTS (select 1 from conversation_participants where conversation_participants.user_id = :user_id and conversation_participants.account_id = messages.account_id and conversation_participants.conversation_id = messages.conversation_id)))', search: "%#{search_query}%", user_id: @current_user.id)
+                                 .where('messages.created_at >= ?', 3.months.ago)
+                                 .reorder('messages.created_at DESC')
+                                 .limit(10)
+    end
   end
 
   def filter_contacts

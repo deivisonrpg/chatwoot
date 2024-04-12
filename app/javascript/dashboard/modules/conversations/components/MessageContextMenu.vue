@@ -89,9 +89,9 @@
           variant="icon"
           @click="showCannedResponseModal"
         />
-        <hr v-if="enabledOptions['delete']" />
+        <hr v-if="enabledOptions['delete'] && isAdmin" />
         <menu-item
-          v-if="enabledOptions['delete']"
+          v-if="enabledOptions['delete'] && isAdmin"
           :option="{
             icon: 'delete',
             label: $t('CONVERSATION.CONTEXT_MENU.DELETE'),
@@ -154,7 +154,11 @@ export default {
     ...mapGetters({
       getAccount: 'accounts/getAccount',
       currentAccountId: 'getCurrentAccountId',
+      currentUserRole: 'getCurrentRole',
     }),
+    isAdmin() {
+      return this.currentUserRole === 'administrator';
+    },
     plainTextContent() {
       return this.getPlainText(this.messageContent);
     },
