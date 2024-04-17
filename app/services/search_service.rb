@@ -25,7 +25,7 @@ class SearchService
   end
 
   def filter_conversations
-    if @current_user.administrator?
+    if @current_user.administrator? || @current_user.supervisor?
       @conversations = current_account.conversations.where(inbox_id: accessable_inbox_ids)
                                       .joins('INNER JOIN contacts ON conversations.contact_id = contacts.id')
                                       .where("cast(conversations.display_id as text) ILIKE :search OR contacts.name ILIKE :search OR contacts.email
@@ -43,7 +43,7 @@ ILIKE :search OR contacts.phone_number ILIKE :search OR contacts.identifier ILIK
   end
 
   def filter_messages
-    if @current_user.administrator?
+    if @current_user.administrator? || @current_user.supervisor?
       @messages = current_account.messages.where(inbox_id: accessable_inbox_ids)
                                  .where('messages.content ILIKE :search', search: "%#{search_query}%")
                                  .where('created_at >= ?', 3.months.ago)

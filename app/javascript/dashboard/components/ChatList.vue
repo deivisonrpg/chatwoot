@@ -373,7 +373,10 @@ export default {
         unassigned: 'unAssignedCount',
       };
 
-      if (this.currentUserRole === 'administrator') {
+      if (
+        this.currentUserRole === 'administrator' ||
+        this.currentUserRole === 'supervisor'
+      ) {
         ASSIGNEE_TYPE_TAB_KEYS.all = 'allCount';
       }
 
