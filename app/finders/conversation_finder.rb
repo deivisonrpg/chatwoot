@@ -94,7 +94,7 @@ class ConversationFinder
   def filter_by_assignee_type
     case @assignee_type
     when 'me'
-      @conversations = @conversations.assigned_to(current_user)
+      @conversations = current_user.participating_conversations.where(account_id: current_account.id)
     when 'unassigned'
       @conversations = @conversations.unassigned
     when 'assigned'
@@ -153,6 +153,7 @@ class ConversationFinder
 
   def set_count_for_all_conversations
     [
+      #current_user.participating_conversations.where(account_id: current_account.id).count,
       @conversations.assigned_to(current_user).count,
       @conversations.unassigned.count,
       @conversations.count
