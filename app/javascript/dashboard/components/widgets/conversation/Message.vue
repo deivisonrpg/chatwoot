@@ -6,7 +6,7 @@
         class="message-failed--alert"
       >
         <woot-button
-          v-tooltip.left="$t('CONVERSATION.TRY_AGAIN')"
+          v-tooltip.top-end="$t('CONVERSATION.TRY_AGAIN')"
           size="tiny"
           color-scheme="alert"
           variant="clear"
@@ -15,7 +15,7 @@
         />
       </div>
       <div
-        v-tooltip.left="messageToolTip"
+        v-tooltip.top-start="messageToolTip"
         :class="bubbleClass"
         @contextmenu="openContextMenu($event)"
       >

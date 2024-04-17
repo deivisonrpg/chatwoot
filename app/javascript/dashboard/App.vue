@@ -6,9 +6,11 @@
     :class="{ 'app-rtl--wrapper': isRTLView }"
     :dir="isRTLView ? 'rtl' : 'ltr'"
   >
+    <update-banner :latest-chatwoot-version="latestChatwootVersion" />
     <template v-if="currentAccountId">
       <pending-email-verification-banner v-if="hideOnOnboardingView" />
       <payment-pending-banner v-if="hideOnOnboardingView" />
+      <upgrade-banner />
     </template>
     <transition name="fade" mode="out-in">
       <router-view />
@@ -28,6 +30,8 @@ import { mapGetters } from 'vuex';
 import AddAccountModal from '../dashboard/components/layout/sidebarComponents/AddAccountModal.vue';
 import LoadingState from './components/widgets/LoadingState.vue';
 import NetworkNotification from './components/NetworkNotification.vue';
+import UpdateBanner from './components/app/UpdateBanner.vue';
+import UpgradeBanner from './components/app/UpgradeBanner.vue';
 import PaymentPendingBanner from './components/app/PaymentPendingBanner.vue';
 import PendingEmailVerificationBanner from './components/app/PendingEmailVerificationBanner.vue';
 import vueActionCable from './helper/actionCable';
@@ -47,8 +51,10 @@ export default {
     AddAccountModal,
     LoadingState,
     NetworkNotification,
+    UpdateBanner,
     PaymentPendingBanner,
     WootSnackbarBox,
+    UpgradeBanner,
     PendingEmailVerificationBanner,
   },
 

@@ -118,7 +118,6 @@ export const actions = {
       AnalyticsHelper.track(CONTACTS_EVENTS.CREATE_CONTACT);
       commit(types.SET_CONTACT_ITEM, response.data.payload.contact);
       commit(types.SET_CONTACT_UI_FLAG, { isCreating: false });
-      bus.$emit('custom_contact_created', response.data.payload.contact);
       return response.data.payload.contact;
     } catch (error) {
       commit(types.SET_CONTACT_UI_FLAG, { isCreating: false });

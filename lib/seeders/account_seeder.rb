@@ -48,7 +48,7 @@ class Seeders::AccountSeeder
 
   def set_up_users
     @account_data['users'].each do |user|
-      user_record = User.create_with(name: user['name'], password: 'Aa123@2').find_or_create_by!(email: (user['email']).to_s)
+      user_record = User.create_with(name: user['name'], password: 'Password1!.').find_or_create_by!(email: (user['email']).to_s)
       user_record.skip_confirmation!
       user_record.save!
       Avatar::AvatarFromUrlJob.perform_later(user_record, "https://xsgames.co/randomusers/avatar.php?g=#{user['gender']}")

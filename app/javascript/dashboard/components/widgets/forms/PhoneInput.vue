@@ -109,7 +109,7 @@ export default {
     return {
       countries: [
         {
-          name: 'Selecione um país',
+          name: 'Select Country',
           dial_code: '',
           emoji: '',
           id: '',
@@ -119,8 +119,8 @@ export default {
       selectedIndex: -1,
       showDropdown: false,
       searchCountry: '',
-      activeCountryCode: 'BR',
-      activeDialCode: '+55',
+      activeCountryCode: '',
+      activeDialCode: '',
       phoneNumber: this.value,
     };
   },
