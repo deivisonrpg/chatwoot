@@ -242,3 +242,5 @@ group :development, :test do
   gem 'spring'
   gem 'spring-watcher-listen'
 end
+
+gem "ruby-lsp", "~> 0.16.6"
