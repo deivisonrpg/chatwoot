@@ -17,7 +17,7 @@
       @error="onImgError"
       @click="onClick"
     />
-    <audio v-else-if="isAudio" controls class="skip-context-menu mb-0.5">
+    <audio v-else-if="isAudio" controls class="skip-context-menu mb-0.5 max-w-full">
       <source :src="`${dataUrl}?t=${Date.now()}`" />
     </audio>
     <gallery-view
