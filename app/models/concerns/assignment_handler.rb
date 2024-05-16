@@ -38,7 +38,7 @@ module AssignmentHandler
 
   def process_assignment_changes
     process_assignment_activities
-    process_participant_assignment
+    # process_participant_assignment
   end
 
   def process_assignment_activities

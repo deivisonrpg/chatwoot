@@ -118,7 +118,7 @@
                 :class="{ editor_warning: $v.message.$error }"
                 :enable-variables="true"
                 :signature="signatureToApply"
-                :allow-signature="true"
+                :allow-signature="false"
                 :placeholder="$t('NEW_CONVERSATION.FORM.MESSAGE.PLACEHOLDER')"
                 @toggle-canned-menu="toggleCannedMenu"
                 @blur="$v.message.$touch"
@@ -283,10 +283,6 @@ export default {
     onSubmit: {
       type: Function,
       default: () => {},
-    },
-    channelType: {
-      type: String,
-      default: '',
     },
   },
   data() {
