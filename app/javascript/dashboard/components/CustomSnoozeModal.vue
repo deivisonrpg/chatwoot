@@ -25,6 +25,7 @@
 
 <script>
 import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/locale/pt-br';
 
 export default {
   components: {
@@ -35,7 +36,7 @@ export default {
     return {
       snoozeTime: null,
       lang: {
-        days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
         yearFormat: 'YYYY',
         monthFormat: 'MMMM',
       },
