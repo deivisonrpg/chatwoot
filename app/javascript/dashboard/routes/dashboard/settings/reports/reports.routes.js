@@ -29,7 +29,7 @@ export default {
         {
           path: 'overview',
           name: 'account_overview_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: LiveReports,
         },
       ],
@@ -46,7 +46,7 @@ export default {
         {
           path: 'conversation',
           name: 'conversation_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: Index,
         },
       ],
@@ -63,7 +63,7 @@ export default {
         {
           path: 'csat',
           name: 'csat_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: CsatResponses,
         },
       ],
@@ -80,7 +80,7 @@ export default {
         {
           path: 'bot',
           name: 'bot_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: BotReports,
         },
       ],
@@ -97,7 +97,7 @@ export default {
         {
           path: 'agent',
           name: 'agent_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: AgentReports,
         },
       ],
@@ -114,7 +114,7 @@ export default {
         {
           path: 'label',
           name: 'label_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: LabelReports,
         },
       ],
@@ -131,7 +131,7 @@ export default {
         {
           path: 'inboxes',
           name: 'inbox_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: InboxReports,
         },
       ],
@@ -147,7 +147,7 @@ export default {
         {
           path: 'teams',
           name: 'team_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: TeamReports,
         },
       ],
@@ -164,7 +164,7 @@ export default {
         {
           path: 'sla',
           name: 'sla_reports',
-          roles: ['administrator'],
+          roles: ['administrator', 'supervisor'],
           component: SLAReports,
         },
       ],

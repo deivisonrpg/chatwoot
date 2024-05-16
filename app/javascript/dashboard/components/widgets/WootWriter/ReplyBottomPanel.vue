@@ -68,7 +68,7 @@
       >
         <span>{{ recordingAudioDurationText }}</span>
       </woot-button>
-      <woot-button
+      <!--<woot-button
         v-if="showMessageSignatureButton"
         v-tooltip.top-end="signatureToggleTooltip"
         icon="signature"
@@ -77,7 +77,7 @@
         size="small"
         :title="signatureToggleTooltip"
         @click="toggleMessageSignature"
-      />
+      />-->
       <woot-button
         v-if="hasWhatsappTemplates"
         v-tooltip.top-end="'Whatsapp Templates'"

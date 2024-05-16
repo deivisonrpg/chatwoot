@@ -120,11 +120,20 @@ export default {
   },
   data() {
     return {
+      countries: [
+        {
+          name: 'Selecione um país',
+          dial_code: '',
+          emoji: '',
+          id: '',
+        },
+        ...countries,
+      ],
       selectedIndex: -1,
       showDropdown: false,
       searchCountry: '',
-      activeCountryCode: '',
-      activeDialCode: '',
+      activeCountryCode: 'BR',
+      activeDialCode: '+55',
       phoneNumber: this.value,
     };
   },

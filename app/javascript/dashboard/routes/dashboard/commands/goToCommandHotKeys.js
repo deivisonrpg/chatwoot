@@ -26,7 +26,7 @@ const GO_TO_COMMANDS = [
     section: 'COMMAND_BAR.SECTIONS.GENERAL',
     icon: ICON_CONVERSATION_DASHBOARD,
     path: accountId => `accounts/${accountId}/dashboard`,
-    role: ['administrator', 'agent'],
+    role: ['administrator', 'agent', 'supervisor'],
   },
   {
     id: 'goto_contacts_dashboard',
@@ -35,7 +35,7 @@ const GO_TO_COMMANDS = [
     featureFlag: FEATURE_FLAGS.CRM,
     icon: ICON_CONTACT_DASHBOARD,
     path: accountId => `accounts/${accountId}/contacts`,
-    role: ['administrator', 'agent'],
+    role: ['administrator', 'agent', 'supervisor'],
   },
   {
     id: 'open_reports_overview',
@@ -134,7 +134,7 @@ const GO_TO_COMMANDS = [
     section: 'COMMAND_BAR.SECTIONS.SETTINGS',
     icon: ICON_CANNED_RESPONSE,
     path: accountId => `accounts/${accountId}/settings/canned-response/list`,
-    role: ['administrator', 'agent'],
+    role: ['administrator', 'agent', 'supervisor'],
   },
   {
     id: 'open_applications_settings',
@@ -159,7 +159,7 @@ const GO_TO_COMMANDS = [
     section: 'COMMAND_BAR.SECTIONS.SETTINGS',
     icon: ICON_USER_PROFILE,
     path: accountId => `accounts/${accountId}/profile/settings`,
-    role: ['administrator', 'agent'],
+    role: ['administrator', 'agent', 'supervisor'],
   },
   {
     id: 'open_notifications',
@@ -167,7 +167,7 @@ const GO_TO_COMMANDS = [
     section: 'COMMAND_BAR.SECTIONS.SETTINGS',
     icon: ICON_NOTIFICATION,
     path: accountId => `accounts/${accountId}/notifications`,
-    role: ['administrator', 'agent'],
+    role: ['administrator', 'agent', 'supervisor'],
   },
 ];
 

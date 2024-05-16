@@ -67,6 +67,7 @@
         </div>
         <woot-button
           v-else
+          v-show="currentUserRole != 'agent'"
           v-tooltip.right="$t('FILTER.TOOLTIP_LABEL')"
           variant="smooth"
           color-scheme="secondary"
@@ -310,6 +311,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      currentUserRole: 'getCurrentRole',
       currentChat: 'getSelectedChat',
       currentUser: 'getCurrentUser',
       chatLists: 'getAllConversations',
@@ -364,8 +366,15 @@ export default {
       const ASSIGNEE_TYPE_TAB_KEYS = {
         me: 'mineCount',
         unassigned: 'unAssignedCount',
-        all: 'allCount',
       };
+
+      if (
+        this.currentUserRole === 'administrator' ||
+        this.currentUserRole === 'supervisor'
+      ) {
+        ASSIGNEE_TYPE_TAB_KEYS.all = 'allCount';
+      }
+
       return Object.keys(ASSIGNEE_TYPE_TAB_KEYS).map(key => {
         const count = this.conversationStats[ASSIGNEE_TYPE_TAB_KEYS[key]] || 0;
         return {
@@ -426,6 +435,7 @@ export default {
     },
     conversationListPagination() {
       const conversationsPerPage = 25;
+
       const hasChatsOnView =
         this.chatsOnView &&
         Array.isArray(this.chatsOnView) &&
@@ -558,6 +568,10 @@ export default {
     bus.$on('fetch_conversation_stats', () => {
       this.$store.dispatch('conversationStats/get', this.conversationFilters);
     });
+
+    bus.$on('custom_change_tab_due_assigned_agent', () => {
+      this.activeAssigneeTab = wootConstants.ASSIGNEE_TYPE.ME;
+    });
   },
   methods: {
     updateVirtualListProps(key, value) {
@@ -604,6 +618,11 @@ export default {
       this.showDeleteFoldersModal = false;
     },
     onToggleAdvanceFiltersModal() {
+      if (this.currentUserRole === 'agent') {
+        this.showAdvancedFilters = false;
+        return;
+      }
+
       if (!this.hasAppliedFilters && !this.hasActiveFolders) {
         this.initializeExistingFilterToModal();
       }

@@ -1,6 +1,6 @@
 class SlaPolicyPolicy < ApplicationPolicy
   def index?
-    @account_user.administrator? || @account_user.agent?
+    @account_user.administrator? || @account_user.agent? || @account_user.supervisor?
   end
 
   def update?
@@ -8,7 +8,7 @@ class SlaPolicyPolicy < ApplicationPolicy
   end
 
   def show?
-    @account_user.administrator? || @account_user.agent?
+    @account_user.administrator? || @account_user.agent? || @account_user.supervisor?
   end
 
   def create?
