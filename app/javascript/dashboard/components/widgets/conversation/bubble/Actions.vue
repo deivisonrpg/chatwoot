@@ -11,7 +11,10 @@
     </span>
     <span v-if="externalError" class="read-indicator-wrap">
       <fluent-icon
-        v-tooltip.left="externalError"
+        v-tooltip.left="{
+          content: externalError,
+          boundariesElement: 'viewport',
+        }"
         icon="error-circle"
         class="action--icon"
         size="14"
