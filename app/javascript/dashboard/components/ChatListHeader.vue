@@ -19,6 +19,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  currentUserRole: {
+    type: String,
+    required: true,
+  },
 });
 
 const emits = defineEmits([
@@ -99,6 +103,7 @@ const hasAppliedFiltersOrActiveFolders = computed(() => {
       </div>
       <woot-button
         v-else
+        v-show="currentUserRole != 'agent'"
         v-tooltip.right="$t('FILTER.TOOLTIP_LABEL')"
         variant="smooth"
         color-scheme="secondary"
