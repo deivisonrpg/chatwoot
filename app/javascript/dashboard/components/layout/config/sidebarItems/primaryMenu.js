@@ -62,7 +62,7 @@ const primaryMenuItems = accountId => [
     label: 'SETTINGS',
     toState: frontendURL(`accounts/${accountId}/settings`),
     toStateName: 'settings_home',
-    roles: ['administrator', 'agent', 'supervisor'],
+    roles: ['administrator', 'supervisor'],
   },
 ];
 
