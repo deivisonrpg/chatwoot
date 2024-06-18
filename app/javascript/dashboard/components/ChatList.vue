@@ -526,10 +526,8 @@ export default {
     this.$emitter.on('fetch_conversation_stats', () => {
       this.$store.dispatch('conversationStats/get', this.conversationFilters);
     });
-    
     this.$emitter.on(CMD_SNOOZE_CONVERSATION, this.onCmdSnoozeConversation);
-    
-    bus.$on('custom_change_tab_due_assigned_agent', () => {
+    this.$emitter.on('custom_change_tab_due_assigned_agent', () => {
       this.activeAssigneeTab = wootConstants.ASSIGNEE_TYPE.ME;
     });
   },

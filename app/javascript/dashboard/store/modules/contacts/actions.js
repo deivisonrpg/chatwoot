@@ -7,6 +7,7 @@ import ContactAPI from '../../../api/contacts';
 import AccountActionsAPI from '../../../api/accountActions';
 import AnalyticsHelper from '../../../helper/AnalyticsHelper';
 import { CONTACTS_EVENTS } from '../../../helper/AnalyticsHelper/events';
+import { emitter } from '../../../../shared/helpers/mitt';
 
 const buildContactFormData = contactParams => {
   const formData = new FormData();
@@ -118,7 +119,7 @@ export const actions = {
       AnalyticsHelper.track(CONTACTS_EVENTS.CREATE_CONTACT);
       commit(types.SET_CONTACT_ITEM, response.data.payload.contact);
       commit(types.SET_CONTACT_UI_FLAG, { isCreating: false });
-      bus.$emit('custom_contact_created', response.data.payload.contact);
+      emitter.emit('custom_contact_created', response.data.payload.contact);
       return response.data.payload.contact;
     } catch (error) {
       commit(types.SET_CONTACT_UI_FLAG, { isCreating: false });

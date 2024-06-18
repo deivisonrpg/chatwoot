@@ -270,7 +270,7 @@ export default {
   mounted() {
     this.setContactObject();
     this.setDialCode();
-    bus.$on('custom_contact_created', contact => {
+    this.$emitter.on('custom_contact_created', contact => {
       this.$router.push(
         `/app/accounts/${this.$route.params.accountId}/contacts/${contact.id}`
       );

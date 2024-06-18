@@ -147,7 +147,6 @@
         @on-send="onSendWhatsAppReply"
         @cancel="hideWhatsappTemplatesModal"
       />
-      
       <woot-confirm-modal
         ref="confirmDialog"
         :title="$t('CONVERSATION.REPLYBOX.UNDEFINED_VARIABLES.TITLE')"
@@ -804,7 +803,7 @@ export default {
         role,
         thumbnail: avatar_url,
       };
-      bus.$emit('custom_change_tab_due_assigned_agent');
+      this.$emit('custom_change_tab_due_assigned_agent');
       this.assignedAgent = selfAssign;
     },
     confirmOnSendReply() {
