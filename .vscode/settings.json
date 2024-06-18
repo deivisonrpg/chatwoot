@@ -1,4 +1,9 @@
 {
+  "rubyLsp.bundleGemfile": "./Gemfile", //or absolute path
+  "rubyLsp.formatter": "rubocop",
+"rubyLsp.rubyVersionManager": {
+    "manager": "rvm"
+},
     "cSpell.words": [
         "chatwoot",
         "dompurify"
