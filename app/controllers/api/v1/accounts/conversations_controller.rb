@@ -10,7 +10,6 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
     result = conversation_finder.perform
     @conversations = result[:conversations]
     @conversations_count = result[:count]
-
   end
 
   def meta
@@ -145,7 +144,11 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
     @conversation ||= if current_user.administrator? || current_user.supervisor?
                         Current.account.conversations.find_by!('display_id = ?', params[:id])
                       else
-                        Current.account.conversations.find_by!('display_id = :display_id and (assignee_id = :assignee_id or assignee_id is null or EXISTS(select 1 from conversation_participants where account_id=:account_id and user_id=:assignee_id and conversation_id=:display_id))', display_id: params[:id], assignee_id: current_user.id, account_id: params[:account_id])
+                        # ActiveRecord::Base.logger = Logger.new(STDOUT)
+                        Current.account.conversations.find_by!(
+                          'display_id = :display_id and (assignee_id = :assignee_id or assignee_id is null or EXISTS(select 1 from conversation_participants where account_id=:account_id and user_id=:assignee_id and conversation_id=conversations.id))', display_id: params[:id], assignee_id: current_user.id, account_id: params[:account_id]
+                        )
+                        # ActiveRecord::Base.logger = Logger.new(nil)
                       end
     authorize @conversation.inbox, :show?
   end
