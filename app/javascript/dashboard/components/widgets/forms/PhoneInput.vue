@@ -53,7 +53,7 @@
           ref="searchbar"
           v-model="searchCountry"
           type="text"
-          placeholder="Search"
+          placeholder="Pesquisa"
           class="!h-8 !mb-0 !text-sm !border !border-solid !border-slate-200 dark:!border-slate-600"
           @input="onSearchCountry"
         />
@@ -84,7 +84,7 @@
         <span
           class="flex items-center justify-center text-sm text-slate-500 dark:text-slate-300 mt-4"
         >
-          No results found
+          Nenhum país encontrado
         </span>
       </div>
     </div>
@@ -123,8 +123,8 @@ export default {
       selectedIndex: -1,
       showDropdown: false,
       searchCountry: '',
-      activeCountryCode: '',
-      activeDialCode: '',
+      activeCountryCode: 'BR',
+      activeDialCode: '+55',
       phoneNumber: this.value,
     };
   },
@@ -141,7 +141,7 @@ export default {
       ];
     },
     dropdownFirstItemName() {
-      return this.activeCountryCode ? 'Clear selection' : 'Select Country';
+      return this.activeCountryCode ? 'Limpar seleção' : 'Selecione um país';
     },
     filteredCountriesBySearch() {
       return this.countries.filter(country => {

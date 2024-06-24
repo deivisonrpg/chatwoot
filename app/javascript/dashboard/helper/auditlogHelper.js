@@ -1,6 +1,7 @@
 const roleMapping = {
   0: 'agent',
   1: 'administrator',
+  99: 'supervisor',
 };
 
 const availabilityMapping = {

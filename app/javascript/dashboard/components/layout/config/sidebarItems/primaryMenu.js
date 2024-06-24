@@ -9,7 +9,7 @@ const primaryMenuItems = accountId => [
     featureFlag: FEATURE_FLAGS.INBOX_VIEW,
     toState: frontendURL(`accounts/${accountId}/inbox-view`),
     toStateName: 'inbox_view',
-    roles: ['administrator', 'agent'],
+    roles: ['administrator', 'agent', 'supervisor'],
   },
   {
     icon: 'chat',
@@ -17,7 +17,7 @@ const primaryMenuItems = accountId => [
     label: 'CONVERSATIONS',
     toState: frontendURL(`accounts/${accountId}/dashboard`),
     toStateName: 'home',
-    roles: ['administrator', 'agent'],
+    roles: ['administrator', 'agent', 'supervisor'],
   },
   {
     icon: 'book-contacts',
@@ -26,7 +26,7 @@ const primaryMenuItems = accountId => [
     featureFlag: FEATURE_FLAGS.CRM,
     toState: frontendURL(`accounts/${accountId}/contacts`),
     toStateName: 'contacts_dashboard',
-    roles: ['administrator', 'agent'],
+    roles: ['administrator', 'agent', 'supervisor'],
   },
   {
     icon: 'arrow-trending-lines',
@@ -35,7 +35,7 @@ const primaryMenuItems = accountId => [
     featureFlag: FEATURE_FLAGS.REPORTS,
     toState: frontendURL(`accounts/${accountId}/reports`),
     toStateName: 'settings_account_reports',
-    roles: ['administrator'],
+    roles: ['administrator', 'supervisor'],
   },
   {
     icon: 'megaphone',
@@ -62,7 +62,7 @@ const primaryMenuItems = accountId => [
     label: 'SETTINGS',
     toState: frontendURL(`accounts/${accountId}/settings`),
     toStateName: 'settings_home',
-    roles: ['administrator', 'agent'],
+    roles: ['administrator', 'supervisor'],
   },
 ];
 

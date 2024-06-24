@@ -62,7 +62,7 @@
           variant="icon"
           @click="handleCopy"
         />
-        <menu-item
+        <!--<menu-item
           v-if="enabledOptions['copy']"
           :option="{
             icon: 'translate',
@@ -70,7 +70,7 @@
           }"
           variant="icon"
           @click="handleTranslate"
-        />
+        /> -->
         <hr />
         <menu-item
           :option="{
@@ -81,7 +81,7 @@
           @click="copyLinkToMessage"
         />
         <menu-item
-          v-if="enabledOptions['cannedResponse']"
+          v-if="enabledOptions['cannedResponse'] && isAdmin"
           :option="{
             icon: 'comment-add',
             label: $t('CONVERSATION.CONTEXT_MENU.CREATE_A_CANNED_RESPONSE'),
@@ -89,9 +89,9 @@
           variant="icon"
           @click="showCannedResponseModal"
         />
-        <hr v-if="enabledOptions['delete']" />
+        <hr v-if="enabledOptions['delete'] && isAdmin" />
         <menu-item
-          v-if="enabledOptions['delete']"
+          v-if="enabledOptions['delete'] && isAdmin"
           :option="{
             icon: 'delete',
             label: $t('CONVERSATION.CONTEXT_MENU.DELETE'),
@@ -153,7 +153,11 @@ export default {
     ...mapGetters({
       getAccount: 'accounts/getAccount',
       currentAccountId: 'getCurrentAccountId',
+      currentUserRole: 'getCurrentRole',
     }),
+    isAdmin() {
+      return this.currentUserRole === 'administrator';
+    },
     plainTextContent() {
       return this.getPlainText(this.messageContent);
     },
