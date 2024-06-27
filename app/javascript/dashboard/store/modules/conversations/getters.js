@@ -46,14 +46,25 @@ const getters = {
   getMineChats: (_state, _, __, rootGetters) => activeFilters => {
     const currentUserID = rootGetters.getCurrentUser?.id;
 
-    return _state.allConversations.filter(conversation => {
+    const result = _state.allConversations.filter(conversation => {
       const { assignee } = conversation.meta;
-      const isAssignedToMe = assignee && assignee.id === currentUserID;
-      const shouldFilter = applyPageFilters(conversation, activeFilters);
-      const isChatMine = isAssignedToMe && shouldFilter;
+      // const { conversation_participants } = conversation;
 
+      const isAssignedToMe = assignee && assignee.id === currentUserID;
+
+      /* const amIParticipating = conversation_participants
+        ? conversation_participants.some(
+            participant => participant.user_id === currentUserID
+          )
+        : false; */
+
+      const shouldFilter = applyPageFilters(conversation, activeFilters);
+      // const isChatMine = (isAssignedToMe || amIParticipating) && shouldFilter;
+      const isChatMine = isAssignedToMe && shouldFilter;
       return isChatMine;
     });
+
+    return result;
   },
   getAppliedConversationFilters: _state => {
     return _state.appliedFilters;

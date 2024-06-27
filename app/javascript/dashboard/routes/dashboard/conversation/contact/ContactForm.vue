@@ -3,19 +3,18 @@
     class="w-full px-8 pt-6 pb-8 contact--form"
     @submit.prevent="handleSubmit"
   >
-    <div>
+    <div class="flex flex-row justify-end w-full gap-2 px-0 py-2">
       <div class="w-full">
-        <woot-avatar-uploader
-          :label="$t('CONTACT_FORM.FORM.AVATAR.LABEL')"
-          :src="avatarUrl"
-          :username-avatar="name"
-          :delete-avatar="!!avatarUrl"
-          class="settings-item"
-          @change="handleImageUpload"
-          @onAvatarDelete="handleAvatarDelete"
+        <woot-submit-button
+          :loading="inProgress"
+          :button-text="$t('CONTACT_FORM.FORM.SUBMIT')"
         />
+        <button class="button clear" @click.prevent="onCancel">
+          {{ $t('CONTACT_FORM.FORM.CANCEL') }}
+        </button>
       </div>
     </div>
+
     <div>
       <div class="w-full">
         <label :class="{ error: $v.name.$error }">
@@ -27,7 +26,35 @@
             @input="$v.name.$touch"
           />
         </label>
-
+        <div>
+          <div class="w-full">
+            <label
+              :class="{
+                error: isPhoneNumberNotValid,
+              }"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.LABEL') }}
+              <woot-phone-input
+                v-model="phoneNumber"
+                :value="phoneNumber"
+                :error="isPhoneNumberNotValid"
+                :placeholder="$t('CONTACT_FORM.FORM.PHONE_NUMBER.PLACEHOLDER')"
+                @input="onPhoneNumberInputChange"
+                @blur="$v.phoneNumber.$touch"
+                @setCode="setPhoneCode"
+              />
+              <span v-if="isPhoneNumberNotValid" class="message">
+                {{ phoneNumberError }}
+              </span>
+            </label>
+            <div
+              v-if="isPhoneNumberNotValid || !phoneNumber"
+              class="relative mx-0 mt-0 mb-2.5 p-2 rounded-md text-sm border border-solid border-yellow-500 text-yellow-700 dark:border-yellow-700 bg-yellow-200/60 dark:bg-yellow-200/20 dark:text-yellow-400"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.HELP') }}
+            </div>
+          </div>
+        </div>
         <label :class="{ error: $v.email.$error }">
           {{ $t('CONTACT_FORM.FORM.EMAIL_ADDRESS.LABEL') }}
           <input
@@ -52,35 +79,6 @@
           @input="$v.description.$touch"
         />
       </label>
-    </div>
-    <div>
-      <div class="w-full">
-        <label
-          :class="{
-            error: isPhoneNumberNotValid,
-          }"
-        >
-          {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.LABEL') }}
-          <woot-phone-input
-            v-model="phoneNumber"
-            :value="phoneNumber"
-            :error="isPhoneNumberNotValid"
-            :placeholder="$t('CONTACT_FORM.FORM.PHONE_NUMBER.PLACEHOLDER')"
-            @input="onPhoneNumberInputChange"
-            @blur="$v.phoneNumber.$touch"
-            @setCode="setPhoneCode"
-          />
-          <span v-if="isPhoneNumberNotValid" class="message">
-            {{ phoneNumberError }}
-          </span>
-        </label>
-        <div
-          v-if="isPhoneNumberNotValid || !phoneNumber"
-          class="relative mx-0 mt-0 mb-2.5 p-2 rounded-md text-sm border border-solid border-yellow-500 text-yellow-700 dark:border-yellow-700 bg-yellow-200/60 dark:bg-yellow-200/20 dark:text-yellow-400"
-        >
-          {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.HELP') }}
-        </div>
-      </div>
     </div>
     <woot-input
       v-model.trim="companyName"
@@ -134,6 +132,18 @@
           type="text"
         />
       </div>
+    </div>
+
+    <div class="w-full">
+      <woot-avatar-uploader
+        :label="$t('CONTACT_FORM.FORM.AVATAR.LABEL')"
+        :src="avatarUrl"
+        :username-avatar="name"
+        :delete-avatar="!!avatarUrl"
+        class="settings-item"
+        @change="handleImageUpload"
+        @onAvatarDelete="handleAvatarDelete"
+      />
     </div>
     <div class="flex flex-row justify-end w-full gap-2 px-0 py-2">
       <div class="w-full">
@@ -260,6 +270,11 @@ export default {
   mounted() {
     this.setContactObject();
     this.setDialCode();
+    this.$emitter.on('custom_contact_created', contact => {
+      this.$router.push(
+        `/app/accounts/${this.$route.params.accountId}/contacts/${contact.id}`
+      );
+    });
   },
   methods: {
     onCancel() {
