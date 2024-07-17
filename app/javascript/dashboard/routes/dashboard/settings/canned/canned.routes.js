@@ -16,13 +16,14 @@ export default {
       children: [
         {
           path: '',
-          name: 'canned_wrapper',
           redirect: 'list',
         },
         {
           path: 'list',
           name: 'canned_list',
-          roles: ['administrator', 'agent', 'supervisor'],
+          meta: {
+            permissions: ['administrator', 'agent', 'supervisor'],
+          },
           component: CannedHome,
         },
       ],
