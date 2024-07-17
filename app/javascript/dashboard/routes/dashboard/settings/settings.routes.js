@@ -25,7 +25,7 @@ export default {
       path: frontendURL('accounts/:accountId/settings'),
       name: 'settings_home',
       meta: {
-        permissions: ['administrator', 'agent'],
+        permissions: ['administrator', 'agent', 'supervisor'],
       },
       redirect: () => {
         if (store.getters.getCurrentRole === 'administrator') {

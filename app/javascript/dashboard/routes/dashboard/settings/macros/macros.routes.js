@@ -24,7 +24,7 @@ export default {
           name: 'macros_wrapper',
           component: Macros,
           meta: {
-            permissions: ['administrator', 'agent'],
+            permissions: ['administrator', 'agent', 'supervisor'],
           },
         },
         {
@@ -32,7 +32,7 @@ export default {
           name: 'macros_new',
           component: MacroEditor,
           meta: {
-            permissions: ['administrator', 'agent'],
+            permissions: ['administrator', 'agent', 'supervisor'],
           },
         },
         {
@@ -40,7 +40,7 @@ export default {
           name: 'macros_edit',
           component: MacroEditor,
           meta: {
-            permissions: ['administrator', 'agent'],
+            permissions: ['administrator', 'agent', 'supervisor'],
           },
         },
       ],

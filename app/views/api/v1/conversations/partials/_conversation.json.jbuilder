@@ -29,7 +29,7 @@ else
                 .includes([{ attachments: [{ file_attachment: [:blob] }] }]).last.try(:push_event_data)
   ]
 end
-
+json.conversation_participants conversation.conversation_participants
 json.account_id conversation.account_id
 json.uuid conversation.uuid
 json.additional_attributes conversation.additional_attributes

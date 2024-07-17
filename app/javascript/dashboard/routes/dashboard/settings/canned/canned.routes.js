@@ -22,7 +22,7 @@ export default {
           path: 'list',
           name: 'canned_list',
           meta: {
-            permissions: ['administrator', 'agent'],
+            permissions: ['administrator', 'agent', 'supervisor'],
           },
           component: CannedHome,
         },

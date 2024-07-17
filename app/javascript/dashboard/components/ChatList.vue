@@ -12,6 +12,7 @@
       :has-applied-filters="hasAppliedFilters"
       :has-active-folders="hasActiveFolders"
       :active-status="activeStatus"
+      :current-user-role="currentUserRole"
       @add-folders="onClickOpenAddFoldersModal"
       @delete-folders="onClickOpenDeleteFoldersModal"
       @filters-modal="onToggleAdvanceFiltersModal"
@@ -248,6 +249,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      currentUserRole: 'getCurrentRole',
       currentChat: 'getSelectedChat',
       currentUser: 'getCurrentUser',
       chatLists: 'getAllConversations',
@@ -296,8 +298,15 @@ export default {
       const ASSIGNEE_TYPE_TAB_KEYS = {
         me: 'mineCount',
         unassigned: 'unAssignedCount',
-        all: 'allCount',
       };
+
+      if (
+        this.currentUserRole === 'administrator' ||
+        this.currentUserRole === 'supervisor'
+      ) {
+        ASSIGNEE_TYPE_TAB_KEYS.all = 'allCount';
+      }
+
       return Object.keys(ASSIGNEE_TYPE_TAB_KEYS).map(key => {
         const count = this.conversationStats[ASSIGNEE_TYPE_TAB_KEYS[key]] || 0;
         return {
@@ -357,6 +366,7 @@ export default {
     },
     conversationListPagination() {
       const conversationsPerPage = 25;
+
       const hasChatsOnView =
         this.chatsOnView &&
         Array.isArray(this.chatsOnView) &&
@@ -501,6 +511,9 @@ export default {
     this.$emitter.on('fetch_conversation_stats', () => {
       this.$store.dispatch('conversationStats/get', this.conversationFilters);
     });
+    this.$emitter.on('custom_change_tab_due_assigned_agent', () => {
+      this.activeAssigneeTab = wootConstants.ASSIGNEE_TYPE.ME;
+    });
   },
   methods: {
     updateVirtualListProps(key, value) {
@@ -547,6 +560,11 @@ export default {
       this.showDeleteFoldersModal = false;
     },
     onToggleAdvanceFiltersModal() {
+      if (this.currentUserRole === 'agent') {
+        this.showAdvancedFilters = false;
+        return;
+      }
+
       if (!this.hasAppliedFilters && !this.hasActiveFolders) {
         this.initializeExistingFilterToModal();
       }

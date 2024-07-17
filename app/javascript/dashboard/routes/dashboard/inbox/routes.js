@@ -13,7 +13,7 @@ export const routes = [
         name: 'inbox_view',
         component: InboxEmptyStateView,
         meta: {
-          permissions: ['administrator', 'agent'],
+          permissions: ['administrator', 'agent', 'supervisor'],
         },
       },
       {
@@ -21,7 +21,7 @@ export const routes = [
         name: 'inbox_view_conversation',
         component: InboxDetailView,
         meta: {
-          permissions: ['administrator', 'agent'],
+          permissions: ['administrator', 'agent', 'supervisor'],
         },
       },
     ],
