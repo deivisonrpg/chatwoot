@@ -95,7 +95,9 @@
   },
   "NETWORK": {
     "NOTIFICATION": {
-      "OFFLINE": "Desconectado"
+      "OFFLINE": "Desconectado",
+      "RECONNECTING": "Reconectando...",
+      "RECONNECT_SUCCESS": "Reconectado"
     },
     "BUTTON": {
       "REFRESH": "Atualizar"
@@ -107,7 +109,7 @@
       "GENERAL": "Geral",
       "REPORTS": "Relatórios",
       "CONVERSATION": "Conversas",
-      "BULK_ACTIONS": "Bulk Actions",
+      "BULK_ACTIONS": "Ações em massa",
       "CHANGE_ASSIGNEE": "Alterar Responsável",
       "CHANGE_PRIORITY": "Alterar Prioridade",
       "CHANGE_TEAM": "Alterar a Equipe",
