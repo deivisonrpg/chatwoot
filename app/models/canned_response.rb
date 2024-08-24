@@ -8,6 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  account_id :integer          not null
+#  user_id    :bigint
 #
 
 class CannedResponse < ApplicationRecord
