@@ -24,6 +24,7 @@ import { conversationListPageURL } from '../helper/URLHelper';
 import {
   isOnMentionsView,
   isOnUnattendedView,
+  isOnParticipatingView,
 } from '../store/modules/conversations/helpers/actionHelpers';
 import { CONVERSATION_EVENTS } from '../helper/AnalyticsHelper/events';
 import IntersectionObserver from './IntersectionObserver.vue';
@@ -190,6 +191,7 @@ export default {
       currentUser: 'getCurrentUser',
       chatLists: 'getAllConversations',
       mineChatsList: 'getMineChats',
+      participatingChatsList: 'getParticipatingChats',
       allChatList: 'getAllStatusChats',
       unAssignedChatsList: 'getUnAssignedChats',
       chatListLoading: 'getChatListLoadingStatus',
@@ -232,6 +234,10 @@ export default {
         me: 'mineCount',
         unassigned: 'unAssignedCount',
       };
+
+      if (this.currentUserRole === 'administrator') {
+        ASSIGNEE_TYPE_TAB_KEYS.participating = 'participatingCount';
+      }
 
       if (
         this.currentUserRole === 'administrator' ||
@@ -351,6 +357,8 @@ export default {
           conversationList = [...this.mineChatsList(filters)];
         } else if (this.activeAssigneeTab === 'unassigned') {
           conversationList = [...this.unAssignedChatsList(filters)];
+        } else if (this.activeAssigneeTab === 'participating') {
+          conversationList = [...this.participatingChatsList(filters)];
         } else {
           conversationList = [...this.allChatList(filters)];
         }
@@ -761,6 +769,8 @@ export default {
           conversationType = 'mention';
         } else if (isOnUnattendedView({ route: { name } })) {
           conversationType = 'unattended';
+        } else if (isOnParticipatingView({ route: { name } })) {
+          conversationType = 'participating';
         }
         this.$router.push(
           conversationListPageURL({

@@ -16,6 +16,7 @@
     "ASSIGNEE_TYPE_TABS": {
       "me": "Minha",
       "unassigned": "Não atribuída",
+      "participating": "Participando",
       "all": "Todos"
     },
     "CHAT_STATUS_FILTER_ITEMS": {

@@ -88,10 +88,9 @@ class Conversation < ApplicationRecord
     ).sort_on_last_user_message_at
   }
 
-  scope :assigned_and_participant, lambda { |agent|
-                                     where(assignee_id: agent.id)
-                                       .or(where(id: ConversationParticipant.where(user_id: agent.id).select(:conversation_id)))
-                                   }
+  scope :participant, lambda { |agent|
+                        where(id: ConversationParticipant.where(user_id: agent.id).select(:conversation_id))
+                      }
 
   belongs_to :account
   belongs_to :inbox

@@ -5,12 +5,14 @@ const state = {
   currentPage: {
     me: 0,
     unassigned: 0,
+    participating: 0,
     all: 0,
     appliedFilters: 0,
   },
   hasEndReached: {
     me: false,
     unassigned: false,
+    participating: false,
     all: false,
   },
 };
@@ -47,6 +49,7 @@ export const mutations = {
     if (filter === 'all') {
       Vue.set($state.hasEndReached, 'unassigned', true);
       Vue.set($state.hasEndReached, 'me', true);
+      Vue.set($state.hasEndReached, 'participating', true);
     }
     Vue.set($state.hasEndReached, filter, true);
   },
@@ -54,6 +57,7 @@ export const mutations = {
     $state.currentPage = {
       me: 0,
       unassigned: 0,
+      participating: 0,
       all: 0,
       appliedFilters: 0,
     };
@@ -61,6 +65,7 @@ export const mutations = {
     $state.hasEndReached = {
       me: false,
       unassigned: false,
+      participating: false,
       all: false,
       appliedFilters: false,
     };

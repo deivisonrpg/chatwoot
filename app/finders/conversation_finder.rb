@@ -38,7 +38,7 @@ class ConversationFinder
   def perform
     set_up
 
-    mine_count, unassigned_count, all_count, = set_count_for_all_conversations
+    participant_count, mine_count, unassigned_count, all_count, = set_count_for_all_conversations
     assigned_count = all_count - unassigned_count
 
     filter_by_assignee_type
@@ -49,6 +49,7 @@ class ConversationFinder
         mine_count: mine_count,
         assigned_count: assigned_count,
         unassigned_count: unassigned_count,
+        participating_count: participant_count,
         all_count: all_count
       }
     }
@@ -94,10 +95,12 @@ class ConversationFinder
   def filter_by_assignee_type
     case @assignee_type
     when 'me'
-      @conversations = @conversations.assigned_and_participant(current_user)
-      # @conversations = @conversations.assigned_to(current_user)
+      @conversations = @conversations.assigned_to(current_user)
     when 'unassigned'
       @conversations = @conversations.unassigned
+    when 'participating'
+      # @conversations = current_user.participating_conversations.where(account_id: current_account.id)
+      @conversations = @conversations.participant(current_user)
     when 'assigned'
       @conversations = @conversations.assigned
     end
@@ -110,7 +113,8 @@ class ConversationFinder
       conversation_ids = current_account.mentions.where(user: current_user).pluck(:conversation_id)
       @conversations = @conversations.where(id: conversation_ids)
     when 'participating'
-      @conversations = current_user.participating_conversations.where(account_id: current_account.id)
+      # @conversations = current_user.participating_conversations.where(account_id: current_account.id).where(inbox_id: params[:inbox_id])
+      @conversations = @conversations.participant(current_user)
     when 'unattended'
       @conversations = @conversations.unattended
     end
@@ -154,7 +158,13 @@ class ConversationFinder
 
   def set_count_for_all_conversations
     [
-      # current_user.participating_conversations.where(account_id: current_account.id).count,
+      # (if params[:inbox_id]
+      #   current_user.participating_conversations.where(account_id: current_account.id).where(inbox_id: params[:inbox_id]).count
+      # else
+      #   current_user.participating_conversations.where(account_id: current_account.id).count
+      # end),
+
+      @conversations.where.not(assignee_id: current_user.id).participant(current_user).count,
       @conversations.assigned_to(current_user).count,
       @conversations.unassigned.count,
       @conversations.count

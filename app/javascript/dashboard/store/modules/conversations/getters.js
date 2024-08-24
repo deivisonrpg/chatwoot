@@ -65,6 +65,30 @@ const getters = {
 
     return result;
   },
+  getParticipatingChats: (_state, _, __, rootGetters) => activeFilters => {
+    const currentUserID = rootGetters.getCurrentUser?.id;
+
+    const result = _state.allConversations.filter(conversation => {
+      const { assignee } = conversation.meta;
+      const { conversation_participants } = conversation;
+
+      const isAssignedToMe = assignee && assignee.id === currentUserID;
+
+      const amIParticipating = conversation_participants
+        ? conversation_participants.some(
+            participant => participant.user_id === currentUserID
+          )
+        : false;
+
+      const shouldFilter = applyPageFilters(conversation, activeFilters);
+      const isParticipating =
+        amIParticipating && !isAssignedToMe && shouldFilter;
+
+      return isParticipating;
+    });
+
+    return result;
+  },
   getAppliedConversationFilters: _state => {
     return _state.appliedFilters;
   },
