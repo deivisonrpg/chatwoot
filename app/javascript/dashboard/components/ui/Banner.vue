@@ -61,7 +61,7 @@ export default {
 
 <template>
   <div
-    class="flex flex-col items-center justify-center gap-4 px-4 py-3 text-base text-white banner dark:text-white"
+    class="flex flex-col items-center justify-center gap-4 px-4 py-3 text-base text-black banner dark:text-white font-bold"
     :class="bannerClasses"
   >
     <span class="banner-message">
@@ -78,10 +78,10 @@ export default {
     <div class="actions">
       <woot-button
         v-if="hasActionButton"
-        size="small"
+        size="medium"
         :icon="actionButtonIcon"
         :variant="actionButtonVariant"
-        color-scheme="warning"
+        color-scheme="secondary"
         class-names="banner-action__button"
         @click="onClick"
       >

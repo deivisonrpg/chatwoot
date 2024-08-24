@@ -1079,8 +1079,8 @@ export default {
   <div class="reply-box" :class="replyBoxClass">
     <Banner
       v-if="showSelfAssignBanner"
-      action-button-variant="clear"
-      color-scheme="secondary"
+      action-button-variant="smooth"
+      color-scheme="success"
       class="banner--self-assign"
       :banner-message="$t('CONVERSATION.NOT_ASSIGNED_TO_YOU')"
       has-action-button
