@@ -20,6 +20,11 @@ export default {
       type: Object,
       required: true,
     },
+    urlType: {
+      type: String,
+      required: false,
+      default: 'data_url',
+    },
   },
   data() {
     return {
@@ -59,7 +64,7 @@ export default {
       return attachments;
     },
     dataUrl() {
-      return this.attachment.data_url;
+      return this.attachment[this.urlType];
     },
     imageWidth() {
       return this.attachment.width ? `${this.attachment.width}px` : 'auto';
