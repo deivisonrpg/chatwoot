@@ -236,9 +236,9 @@ export default {
           variant="icon"
           @click="showCannedResponseModal"
         />
-        <hr v-if="enabledOptions['delete'] && isAdmin" />
+        <hr v-if="enabledOptions['delete'] && message.message_type === 1" />
         <MenuItem
-          v-if="enabledOptions['delete'] && isAdmin"
+          v-if="enabledOptions['delete'] && message.message_type === 1"
           :option="{
             icon: 'delete',
             label: $t('CONVERSATION.CONTEXT_MENU.DELETE'),
