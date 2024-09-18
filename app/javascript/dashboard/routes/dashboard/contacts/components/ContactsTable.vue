@@ -86,7 +86,6 @@ export default {
           field: 'name',
           key: 'name',
           title: this.$t('CONTACTS_PAGE.LIST.TABLE_HEADER.NAME'),
-          fixed: 'left',
           align: this.isRTL ? 'right' : 'left',
           sortBy: this.sortConfig.name || '',
           width: 300,

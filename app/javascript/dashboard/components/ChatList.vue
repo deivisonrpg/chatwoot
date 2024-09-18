@@ -280,7 +280,7 @@ export default {
           count,
         };
       });
-      return filterItemsByPermission(
+      /*return filterItemsByPermission(
         ASSIGNEE_TYPE_TAB_PERMISSIONS,
         this.userPermissions,
         item => item.permissions
@@ -288,7 +288,7 @@ export default {
         key,
         name: this.$t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
         count: this.conversationStats[countKey] || 0,
-      }));
+      }));*/
     },
     showAssigneeInConversationCard() {
       return (
