@@ -17,7 +17,6 @@ export default {
     BubbleContact,
     BubbleFile,
   },
-  mixins: [messageFormatterMixin],
   props: {
     message: {
       type: Object,
