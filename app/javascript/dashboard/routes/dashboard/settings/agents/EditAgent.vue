@@ -79,6 +79,11 @@ const roles = computed(() => {
       name: 'agent',
       label: t('AGENT_MGMT.AGENT_TYPES.AGENT'),
     },
+    {
+      id: 'supervisor',
+      name: 'supervisor',
+      label: t('AGENT_MGMT.AGENT_TYPES.SUPERVISOR'),
+    },
   ];
 
   const customRoles = getCustomRoles.value.map(role => ({
