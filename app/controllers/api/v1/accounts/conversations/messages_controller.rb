@@ -19,7 +19,7 @@ class Api::V1::Accounts::Conversations::MessagesController < Api::V1::Accounts::
                     else
                       "⛔ #{I18n.t('conversations.messages.deleted')}"
                     end
-      message.update!(content: new_content, content_attributes: { deleted: true })
+      message.update!(content: new_content, content_type: :text, content_attributes: { deleted: true })
       message.attachments.destroy_all
     end
   end

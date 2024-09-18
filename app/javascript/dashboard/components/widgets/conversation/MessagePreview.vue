@@ -1,6 +1,6 @@
 <script>
 import { MESSAGE_TYPE } from 'widget/helpers/constants';
-import messageFormatterMixin from 'shared/mixins/messageFormatterMixin';
+import { useMessageFormatter } from 'shared/composables/useMessageFormatter';
 import { ATTACHMENT_ICONS } from 'shared/constants/messages';
 import BubbleImageAudioVideo from './bubble/ImageAudioVideo.vue';
 import InstagramStory from './bubble/InstagramStory.vue';
@@ -39,6 +39,12 @@ export default {
   data: () => {
     return {
       previewMessage: null,
+    };
+  },
+  setup() {
+    const { getPlainText } = useMessageFormatter();
+    return {
+      getPlainText,
     };
   },
   computed: {

@@ -3,3 +3,5 @@ class ReportPolicy < ApplicationPolicy
     @account_user.administrator? ||  @account_user.supervisor?
   end
 end
+
+ReportPolicy.prepend_mod_with('Enterprise::ReportPolicy')
