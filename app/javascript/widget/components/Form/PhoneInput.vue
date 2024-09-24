@@ -28,8 +28,8 @@ export default {
       selectedIndex: -1,
       showDropdown: false,
       searchCountry: '',
-      activeCountryCode: '',
-      activeDialCode: '',
+      activeCountryCode: 'BR',
+      activeDialCode: '+55',
       phoneNumber: '',
     };
   },
