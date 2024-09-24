@@ -68,6 +68,7 @@ export const shortTimestamp = (time, withAgo = false) => {
   const suffix = withAgo ? ' atrás' : '';
   const timeMappings = {
     'há menos de um minuto': 'agora',
+    'em menos de um minuto': 'agora',
     'há 1 minuto': `1m${suffix}`,
     'há 1 hora': `1h${suffix}`,
     'há 1 dia': `1d${suffix}`,
