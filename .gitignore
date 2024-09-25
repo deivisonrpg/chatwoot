@@ -62,7 +62,7 @@ test/cypress/videos/*
 /config/*.enc
 
 #ignore files under .vscode directory
-.vscode
+#.vscode
 
 # yalc for local testing
 .yalc

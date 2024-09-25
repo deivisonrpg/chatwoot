@@ -1,9 +1,12 @@
 {
-  "rubyLsp.bundleGemfile": "./Gemfile", //or absolute path
-  "rubyLsp.formatter": "rubocop",
-"rubyLsp.rubyVersionManager": {
-    "manager": "rvm"
-},
+    "rubyLsp.bundleGemfile": "./Gemfile", //or absolute path
+    "rubyLsp.formatter": "rubocop",
+    "css.customData": [
+        ".vscode/tailwind.json"
+    ],
+    "rubyLsp.rubyVersionManager": {
+        "manager": "rvm"
+    },
     "cSpell.words": [
         "chatwoot",
         "dompurify"
