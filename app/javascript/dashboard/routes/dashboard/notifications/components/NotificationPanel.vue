@@ -130,13 +130,15 @@ export default {
   <div class="modal-mask">
     <div
       v-on-clickaway="closeNotificationPanel"
-      class="flex-col h-[90vh] w-[32.5rem] flex justify-between z-10 rounded-md shadow-md absolute bg-white dark:bg-slate-800 left-14 rtl:left-auto rtl:right-14 m-4"
+      class="flex-col h-[90dvh] w-11/12 md:w-4/5 lg:w-3/6 flex justify-between z-10 rounded-md shadow-md absolute bg-white dark:bg-slate-800 md:left-14 rtl:left-auto rtl:right-14 m-4"
     >
       <div
         class="flex flex-row items-center justify-between w-full px-6 pt-5 pb-3 border-b border-solid border-slate-50 dark:border-slate-700"
       >
         <div class="flex items-center">
-          <span class="text-xl font-bold text-slate-800 dark:text-slate-100">
+          <span
+            class="text-base md:text-xl font-bold text-slate-800 dark:text-slate-100"
+          >
             {{ $t('NOTIFICATIONS_PAGE.UNREAD_NOTIFICATION.TITLE') }}
           </span>
           <span
@@ -152,11 +154,11 @@ export default {
             color-scheme="primary"
             variant="smooth"
             size="tiny"
+            icon="mail-unread"
             :is-loading="uiFlags.isUpdating"
             @click="onMarkAllDoneClick"
-          >
-            {{ $t('NOTIFICATIONS_PAGE.MARK_ALL_DONE') }}
-          </woot-button>
+          />
+
           <woot-button
             color-scheme="secondary"
             variant="smooth"
