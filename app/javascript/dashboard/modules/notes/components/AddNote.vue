@@ -34,6 +34,7 @@ useKeyboardEvents(keyboardEvents);
       class="input--note"
       :placeholder="$t('NOTES.ADD.PLACEHOLDER')"
       :enable-suggestions="false"
+      :focus-on-mount="false"
     />
     <div class="flex justify-end w-full">
       <woot-button

@@ -139,11 +139,11 @@ export default {
       class="p-2 border border-solid rounded-md"
       :class="getInputErrorClass(errorMessage)"
     >
-      <div class="flex">
+      <div class="flex flex-col gap-2 md:flex-row">
         <select
           v-if="groupedFilters"
           v-model="attributeKey"
-          class="bg-white max-w-[30%] dark:bg-slate-900 mb-0 mr-1 text-slate-800 dark:text-slate-100 border-slate-75 dark:border-slate-600"
+          class="bg-white w-full md:max-w-[30%] dark:bg-slate-900 mb-0 mr-1 text-slate-800 dark:text-slate-100 border-slate-75 dark:border-slate-600"
           @change="resetFilter()"
         >
           <optgroup
@@ -163,7 +163,7 @@ export default {
         <select
           v-else
           v-model="attributeKey"
-          class="bg-white max-w-[30%] dark:bg-slate-900 mb-0 mr-1 text-slate-800 dark:text-slate-100 border-slate-75 dark:border-slate-600"
+          class="bg-white w-full md:max-w-[30%] dark:bg-slate-900 mb-0 mr-1 text-slate-800 dark:text-slate-100 border-slate-75 dark:border-slate-600"
           @change="resetFilter()"
         >
           <option
@@ -178,7 +178,7 @@ export default {
 
         <select
           v-model="filterOperator"
-          class="bg-white dark:bg-slate-900 max-w-[20%] mb-0 mr-1 text-slate-800 dark:text-slate-100 border-slate-75 dark:border-slate-600"
+          class="bg-white dark:bg-slate-900 w-full md:max-w-[20%] mb-0 mr-1 text-slate-800 dark:text-slate-100 border-slate-75 dark:border-slate-600"
         >
           <option
             v-for="(operator, o) in operators"
@@ -189,7 +189,10 @@ export default {
           </option>
         </select>
 
-        <div v-if="showUserInput" class="flex-grow mr-1 filter__answer--wrap">
+        <div
+          v-if="showUserInput"
+          class="flex-grow md:mr-1 filter__answer--wrap"
+        >
           <div
             v-if="inputType === 'multi_select'"
             class="multiselect-wrap--small"

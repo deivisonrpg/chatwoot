@@ -272,7 +272,7 @@ export default {
         {{ filterModalSubTitle }}
       </p>
     </woot-modal-header>
-    <div class="p-8">
+    <div class="p-1 lg:p-4">
       <div v-if="isSegmentsView">
         <label class="input-label" :class="{ error: !activeSegmentNewName }">
           {{ $t('CONTACTS_FILTER.SEGMENT_LABEL') }}

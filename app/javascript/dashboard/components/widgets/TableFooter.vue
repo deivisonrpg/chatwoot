@@ -29,12 +29,13 @@ const isFooterVisible = computed(
 <template>
   <footer
     v-if="isFooterVisible"
-    class="flex items-center justify-between h-12 px-6"
+    class="flex items-center justify-center md:justify-between h-12 px-0 md:px-6"
   >
     <TableFooterResults
       :first-index="firstIndex"
       :last-index="lastIndex"
       :total-count="totalCount"
+      class="hidden md:block"
     />
     <TableFooterPagination
       v-if="totalCount"

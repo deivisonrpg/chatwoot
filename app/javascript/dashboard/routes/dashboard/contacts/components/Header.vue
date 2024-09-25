@@ -32,7 +32,7 @@ export default {
   computed: {
     searchButtonClass() {
       return this.searchQuery !== ''
-        ? 'opacity-100 translate-x-0 visible'
+        ? 'opacity-100 translate-x-0 invisible md:visible'
         : '-translate-x-px opacity-0 invisible';
     },
     ...mapGetters({
@@ -92,20 +92,18 @@ export default {
     class="bg-white border-b dark:bg-slate-900 border-slate-50 dark:border-slate-800"
   >
     <div class="flex justify-between w-full px-4 py-2">
-      <div class="flex flex-col items-center w-full gap-2 md:flex-row">
+      <div class="flex flex-col items-center w-full gap-2 lg:flex-row">
         <div class="flex justify-between w-full gap-2">
-          <div
-            class="flex items-center justify-center max-w-full min-w-[6.25rem]"
-          >
+          <div class="flex items-center justify-center max-w-full">
             <woot-sidemenu-icon />
             <h1
-              class="m-0 mx-2 my-0 overflow-hidden text-xl text-slate-900 dark:text-slate-100 whitespace-nowrap text-ellipsis"
+              class="m-0 mx-2 my-0 overflow-hidden text-xl text-slate-900 dark:text-slate-100 whitespace-nowrap text-ellipsis hidden md:block"
             >
               {{ headerTitle }}
             </h1>
           </div>
           <div
-            class="max-w-[400px] min-w-[100px] flex items-center relative mx-2"
+            class="w-full lg:max-w-[600px] min-w-[100px] flex items-center relative mx-2"
           >
             <div class="flex items-center absolute h-full left-2.5">
               <fluent-icon
@@ -116,7 +114,7 @@ export default {
             <input
               type="text"
               :placeholder="$t('CONTACTS_PAGE.SEARCH_INPUT_PLACEHOLDER')"
-              class="!pl-9 !pr-[3.75rem] !text-sm !w-full !h-[2.375rem] !m-0 border-slate-100 dark:border-slate-600"
+              class="!pl-9 md:!pr-[6rem] !text-sm !w-full !h-[2.375rem] !m-0 border-slate-100 dark:border-slate-600"
               :value="searchQuery"
               @keyup.enter="submitSearch"
               @input="inputSearch"

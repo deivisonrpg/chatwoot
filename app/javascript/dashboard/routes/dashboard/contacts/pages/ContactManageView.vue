@@ -4,7 +4,6 @@ import ContactInfoPanel from '../components/ContactInfoPanel.vue';
 import ContactNotes from 'dashboard/modules/notes/NotesOnContactPage.vue';
 import SettingsHeader from '../../settings/SettingsHeader.vue';
 import Spinner from 'shared/components/Spinner.vue';
-import Thumbnail from 'dashboard/components/widgets/Thumbnail.vue';
 
 export default {
   components: {
@@ -12,7 +11,6 @@ export default {
     ContactNotes,
     SettingsHeader,
     Spinner,
-    Thumbnail,
   },
   props: {
     contactId: {
@@ -69,33 +67,31 @@ export default {
   >
     <SettingsHeader
       button-route="new"
-      :header-title="contact.name"
+      :show-sidemenu-icon="false"
       show-back-button
       :back-button-label="$t('CONTACT_PROFILE.BACK_BUTTON')"
       :back-url="backUrl"
       :show-new-button="false"
-    >
-      <Thumbnail
-        v-if="contact.thumbnail"
-        :src="contact.thumbnail"
-        :username="contact.name"
-        size="32px"
-        class="mr-2 rtl:mr-0 rtl:ml-2"
-      />
-    </SettingsHeader>
+    />
 
     <div v-if="uiFlags.isFetchingItem" class="text-center p-4 text-base h-full">
       <Spinner size="" />
       <span>{{ $t('CONTACT_PROFILE.LOADING') }}</span>
     </div>
-    <div v-else-if="contact.id" class="overflow-hidden flex-1 min-w-0">
-      <div class="flex flex-wrap ml-auto mr-auto max-w-full h-full">
+    <div
+      v-else-if="contact.id"
+      class="lg:overflow-hidden overflow-y-auto flex-1 min-w-0"
+    >
+      <div
+        class="flex flex-wrap ml-auto mr-auto max-w-full lg:h-full lg:flex-row"
+      >
         <ContactInfoPanel
           :show-close-button="false"
-          :show-avatar="false"
+          show-avatar
           :contact="contact"
+          class="w-full lg:w-2/6"
         />
-        <div class="w-3/4 h-full">
+        <div class="lg:w-4/6 w-full overflow-y-auto h-full">
           <woot-tabs :index="selectedTabIndex" @change="onClickTabChange">
             <woot-tabs-item
               v-for="tab in tabs"

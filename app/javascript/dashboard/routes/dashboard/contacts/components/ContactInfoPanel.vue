@@ -78,7 +78,7 @@ export default {
 
 <template>
   <div
-    class="relative w-1/4 h-full overflow-y-auto text-sm bg-white dark:bg-slate-900 border-slate-50 dark:border-slate-800/50"
+    class="relative h-full overflow-y-auto text-sm bg-white dark:bg-slate-900 border-slate-50 dark:border-slate-800/50"
     :class="showAvatar ? 'border-l border-solid ' : 'border-r border-solid'"
   >
     <ContactInfo
@@ -94,8 +94,7 @@ export default {
       :disabled="!dragEnabled"
       class="list-group"
       ghost-class="ghost"
-      @start="dragging = true"
-      @end="onDragEnd"
+      draggable="false"
     >
       <transition-group>
         <div

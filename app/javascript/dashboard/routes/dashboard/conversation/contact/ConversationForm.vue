@@ -281,7 +281,9 @@ export default {
         };
         this.onSuccess();
         useAlert(this.$t('NEW_CONVERSATION.FORM.SUCCESS_MESSAGE'), action);
-        this.$router.push(`/app/accounts/${data.account_id}/conversations/${data.id}`);
+        this.$router.push(
+          `/app/accounts/${data.account_id}/conversations/${data.id}`
+        );
       } catch (error) {
         if (error instanceof ExceptionWithMessage) {
           useAlert(error.data);
@@ -331,8 +333,8 @@ export default {
       </p>
     </div>
     <div v-else>
-      <div class="flex flex-row gap-2">
-        <div class="w-[50%]">
+      <div class="flex flex-col md:flex-row md:gap-2 gap-0 mb-4 md:mb-0">
+        <div class="w-full md:w-[50%]">
           <label>
             {{ $t('NEW_CONVERSATION.FORM.INBOX.LABEL') }}
           </label>
@@ -378,7 +380,7 @@ export default {
             </span>
           </label>
         </div>
-        <div class="w-[50%]">
+        <div class="w-full md:w-[50%]">
           <label>
             {{ $t('NEW_CONVERSATION.FORM.TO.LABEL') }}
             <div

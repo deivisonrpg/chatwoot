@@ -105,9 +105,6 @@ export default {
     showContactViewPane() {
       return this.selectedContactId !== '';
     },
-    wrapClass() {
-      return this.showContactViewPane ? 'w-[75%]' : 'w-full';
-    },
     pageParameter() {
       const selectedPageNumber = Number(this.$route.query?.page);
       return !Number.isNaN(selectedPageNumber) &&
@@ -390,7 +387,7 @@ export default {
 
 <template>
   <div class="flex flex-row w-full">
-    <div class="flex flex-col h-full" :class="wrapClass">
+    <div class="flex flex-col min-w-0 w-full h-full">
       <ContactsHeader
         :search-query="searchQuery"
         :header-title="pageTitle"
@@ -439,12 +436,16 @@ export default {
       :open-last-item-after-delete="openLastItemAfterDeleteInSegment"
       @close="onCloseDeleteSegmentsModal"
     />
-
-    <ContactInfoPanel
-      v-if="showContactViewPane"
-      :contact="selectedContact"
-      :on-close="closeContactInfoPanel"
-    />
+    <div
+      v-show="showContactViewPane"
+      class="basis-full sm:basis-[17.5rem] md:basis-[18.75rem] lg:basis-[19.375rem] xl:basis-[20.625rem] 2xl:basis-[25rem] rtl:border-r border-slate-50 dark:border-slate-700 h-auto overflow-auto z-10 flex-shrink-0 flex-grow-0"
+    >
+      <ContactInfoPanel
+        v-if="showContactViewPane"
+        :contact="selectedContact"
+        :on-close="closeContactInfoPanel"
+      />
+    </div>
     <CreateContact :show="showCreateModal" @cancel="onToggleCreate" />
     <woot-modal :show.sync="showImportModal" :on-close="onToggleImport">
       <ImportContacts v-if="showImportModal" :on-close="onToggleImport" />
@@ -468,3 +469,9 @@ export default {
     </woot-modal>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.conversation-details-wrap {
+  @apply flex flex-col min-w-0 w-full;
+}
+</style>

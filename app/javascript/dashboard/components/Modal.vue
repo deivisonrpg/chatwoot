@@ -113,7 +113,7 @@ export default {
   @apply flex items-center justify-center bg-modal-backdrop-light dark:bg-modal-backdrop-dark z-[9990] h-full left-0 fixed top-0 w-full;
   .modal-container {
     &.medium {
-      @apply max-w-[80%] w-[56.25rem];
+      @apply lg:w-[70%] w-full;
     }
     // .content-box {
     //   @apply h-auto p-0;

@@ -147,8 +147,7 @@ export default {
       class="list-group"
       ghost-class="ghost"
       handle=".drag-handle"
-      @start="dragging = true"
-      @end="onDragEnd"
+      draggable="false"
     >
       <transition-group>
         <div

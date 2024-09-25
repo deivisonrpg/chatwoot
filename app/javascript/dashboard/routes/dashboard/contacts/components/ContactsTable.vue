@@ -88,7 +88,7 @@ export default {
           title: this.$t('CONTACTS_PAGE.LIST.TABLE_HEADER.NAME'),
           align: this.isRTL ? 'right' : 'left',
           sortBy: this.sortConfig.name || '',
-          width: 300,
+          width: 330,
           renderBodyCell: ({ row }) => (
             <woot-button
               variant="clear"
@@ -101,8 +101,8 @@ export default {
                   username={row.name}
                   status={row.availability_status}
                 />
-                <div class="user-block">
-                  <h6 class="overflow-hidden text-base whitespace-nowrap text-ellipsis">
+                <div class="user-block truncate">
+                  <h6 class="overflow-hidden text-base whitespace-nowrap text-ellipsis max-w-[255px]">
                     <router-link
                       to={`/app/accounts/${this.$route.params.accountId}/contacts/${row.id}`}
                       class="user-name"
@@ -117,6 +117,13 @@ export default {
               </div>
             </woot-button>
           ),
+        },
+        {
+          field: 'phone_number',
+          key: 'phone_number',
+          sortBy: this.sortConfig.phone_number || '',
+          title: this.$t('CONTACTS_PAGE.LIST.TABLE_HEADER.PHONE_NUMBER'),
+          align: this.isRTL ? 'right' : 'left',
         },
         {
           field: 'email',
@@ -140,13 +147,6 @@ export default {
               );
             return '---';
           },
-        },
-        {
-          field: 'phone_number',
-          key: 'phone_number',
-          sortBy: this.sortConfig.phone_number || '',
-          title: this.$t('CONTACTS_PAGE.LIST.TABLE_HEADER.PHONE_NUMBER'),
-          align: this.isRTL ? 'right' : 'left',
         },
         {
           field: 'company',
@@ -251,7 +251,7 @@ export default {
   >
     <VeTable
       fixed-header
-      max-height="calc(100vh - 7.125rem)"
+      max-height="calc(100dvh - 9.125rem)"
       scroll-width="187rem"
       :columns="columns"
       :table-data="tableData"
