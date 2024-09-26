@@ -15,6 +15,7 @@ gem 'browser'
 gem 'hashie'
 gem 'jbuilder'
 gem 'kaminari'
+gem 'mutex_m'
 gem 'responders', '>= 3.1.1'
 gem 'rest-client'
 gem 'telephone_number'
@@ -240,4 +241,4 @@ group :development, :test do
   gem 'spring-watcher-listen'
 end
 
-gem "ruby-lsp", "~> 0.16.6"
+gem 'ruby-lsp', '~> 0.16.6'
