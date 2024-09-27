@@ -75,7 +75,7 @@ export default {
         {{ hrefLinkText }}
       </a>
     </span>
-    <div class="actions">
+    <div v-if="hasActionButton || hasCloseButton" class="actions">
       <woot-button
         v-if="hasActionButton"
         size="medium"
