@@ -222,12 +222,12 @@ onMounted(() => {
       @click="onClose"
     >
       <div
-        class="z-10 flex items-center justify-between w-full h-16 px-6 py-2 bg-white dark:bg-slate-900"
+        class="z-10 flex flex-col lg:flex-row items-center justify-between w-full h-16 px-6 py-2 bg-white dark:bg-slate-900"
         @click.stop
       >
         <div
           v-if="senderDetails"
-          class="items-center flex justify-start min-w-[15rem]"
+          class="items-center flex max-lg:justify-center justify-start min-w-[15rem]"
         >
           <Thumbnail
             v-if="senderDetails.avatar"
@@ -235,7 +235,7 @@ onMounted(() => {
             :src="senderDetails.avatar"
           />
           <div
-            class="flex flex-col items-start justify-center ml-2 rtl:ml-0 rtl:mr-2"
+            class="flex flex-col max-lg:items-center items-start justify-center ml-2 rtl:ml-0 rtl:mr-2"
           >
             <h3 class="text-base inline-block leading-[1.4] m-0 p-0 capitalize">
               <span
@@ -264,70 +264,59 @@ onMounted(() => {
         >
           <woot-button
             v-if="isImage"
-            size="large"
+            size="medium"
             color-scheme="secondary"
             variant="clear"
             icon="zoom-in"
             @click="onZoom(0.1)"
+            class="flex-shrink-0"
           />
           <woot-button
             v-if="isImage"
-            size="large"
+            size="medium"
             color-scheme="secondary"
             variant="clear"
             icon="zoom-out"
             @click="onZoom(-0.1)"
+            class="flex-shrink-0"
           />
           <woot-button
             v-if="isImage"
-            size="large"
+            size="medium"
             color-scheme="secondary"
             variant="clear"
             icon="arrow-rotate-counter-clockwise"
             @click="onRotate('counter-clockwise')"
+            class="flex-shrink-0"
           />
           <woot-button
             v-if="isImage"
-            size="large"
+            size="medium"
             color-scheme="secondary"
             variant="clear"
             icon="arrow-rotate-clockwise"
             @click="onRotate('clockwise')"
+            class="flex-shrink-0"
           />
           <woot-button
-            size="large"
+            size="medium"
             color-scheme="secondary"
             variant="clear"
             icon="arrow-download"
             @click="onClickDownload"
+            class="flex-shrink-0"
           />
           <woot-button
-            size="large"
+            size="medium"
             color-scheme="secondary"
             variant="clear"
             icon="dismiss"
             @click="onClose"
+            class="flex-shrink-0"
           />
         </div>
       </div>
-      <div class="flex items-center justify-center w-full h-full">
-        <div class="flex justify-center min-w-[6.25rem] w-[6.25rem]">
-          <woot-button
-            v-if="hasMoreThanOneAttachment"
-            class="z-10"
-            size="large"
-            variant="smooth"
-            color-scheme="primary"
-            icon="chevron-left"
-            :disabled="activeImageIndex === 0"
-            @click.stop="
-              onClickChangeAttachment(
-                allAttachments[activeImageIndex - 1],
-                activeImageIndex - 1
-              )
-            "
-          />
-        </div>
+      <div class="flex items-center flex-col justify-center w-full h-full">
         <div class="flex flex-col items-center justify-center w-full h-full">
           <div>
             <img
@@ -359,11 +348,29 @@ onMounted(() => {
             </audio>
           </div>
         </div>
+        <div class="flex flex-row">
         <div class="flex justify-center min-w-[6.25rem] w-[6.25rem]">
           <woot-button
             v-if="hasMoreThanOneAttachment"
             class="z-10"
-            size="large"
+            size="medium"
+            variant="smooth"
+            color-scheme="primary"
+            icon="chevron-left"
+            :disabled="activeImageIndex === 0"
+            @click.stop="
+              onClickChangeAttachment(
+                allAttachments[activeImageIndex - 1],
+                activeImageIndex - 1
+              )
+            "
+          />
+        </div>
+        <div class="flex justify-center min-w-[6.25rem] w-[6.25rem] ">
+          <woot-button
+            v-if="hasMoreThanOneAttachment"
+            class="z-10"
+            size="medium"
             variant="smooth"
             color-scheme="primary"
             :disabled="activeImageIndex === allAttachments.length - 1"
@@ -377,6 +384,7 @@ onMounted(() => {
           />
         </div>
       </div>
+    </div>
       <div class="z-10 flex items-center justify-center w-full h-16 px-6 py-2">
         <div
           class="items-center rounded-sm flex font-semibold justify-center min-w-[5rem] p-1 bg-slate-25 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-sm"
