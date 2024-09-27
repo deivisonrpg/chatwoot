@@ -201,6 +201,9 @@ export default {
     },
   },
   mounted() {
+    if (this.contact.contactableInboxes.length === 1) {
+      this.targetInbox = this.contact.contactableInboxes[0].inbox;
+    }
     this.setSignature();
   },
   methods: {
