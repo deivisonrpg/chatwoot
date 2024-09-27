@@ -651,7 +651,7 @@ export default {
         role,
         thumbnail: avatar_url,
       };
-      this.$emit('custom_change_tab_due_assigned_agent');
+      this.$emitter.emit('custom_change_tab_due_assigned_agent');
       this.assignedAgent = selfAssign;
     },
     confirmOnSendReply() {
@@ -1085,146 +1085,150 @@ export default {
       @click="onClickSelfAssign"
     />
     <div v-if="!showSelfAssignBanner">
-    <ReplyTopPanel
-      :mode="replyType"
-      :is-message-length-reaching-threshold="isMessageLengthReachingThreshold"
-      :characters-remaining="charactersRemaining"
-      :popout-reply-box="popoutReplyBox"
-      @setReplyMode="setReplyMode"
-      @click="$emit('click')"
-    />
-    <ArticleSearchPopover
-      v-if="showArticleSearchPopover && connectedPortalSlug"
-      :selected-portal-slug="connectedPortalSlug"
-      @insert="handleInsert"
-      @close="onSearchPopoverClose"
-    />
-    <div class="reply-box__top">
-      <ReplyToMessage
-        v-if="shouldShowReplyToMessage"
-        :message="inReplyTo"
-        @dismiss="resetReplyToMessage"
+      <ReplyTopPanel
+        :mode="replyType"
+        :is-message-length-reaching-threshold="isMessageLengthReachingThreshold"
+        :characters-remaining="charactersRemaining"
+        :popout-reply-box="popoutReplyBox"
+        @setReplyMode="setReplyMode"
+        @click="$emit('click')"
       />
-      <CannedResponse
-        v-if="showMentions && hasSlashCommand"
-        v-on-clickaway="hideMentions"
-        class="normal-editor__canned-box"
-        :search-key="mentionSearchKey"
-        @click="replaceText"
+      <ArticleSearchPopover
+        v-if="showArticleSearchPopover && connectedPortalSlug"
+        :selected-portal-slug="connectedPortalSlug"
+        @insert="handleInsert"
+        @close="onSearchPopoverClose"
       />
-      <EmojiInput
-        v-if="showEmojiPicker"
-        v-on-clickaway="hideEmojiPicker"
-        :class="emojiDialogClassOnExpandedLayoutAndRTLView"
-        :on-click="addIntoEditor"
+      <div class="reply-box__top">
+        <ReplyToMessage
+          v-if="shouldShowReplyToMessage"
+          :message="inReplyTo"
+          @dismiss="resetReplyToMessage"
+        />
+        <CannedResponse
+          v-if="showMentions && hasSlashCommand"
+          v-on-clickaway="hideMentions"
+          class="normal-editor__canned-box"
+          :search-key="mentionSearchKey"
+          @click="replaceText"
+        />
+        <EmojiInput
+          v-if="showEmojiPicker"
+          v-on-clickaway="hideEmojiPicker"
+          :class="emojiDialogClassOnExpandedLayoutAndRTLView"
+          :on-click="addIntoEditor"
+        />
+        <ReplyEmailHead
+          v-if="showReplyHead"
+          :cc-emails.sync="ccEmails"
+          :bcc-emails.sync="bccEmails"
+          :to-emails.sync="toEmails"
+        />
+        <WootAudioRecorder
+          v-if="showAudioRecorderEditor"
+          ref="audioRecorderInput"
+          :audio-record-format="audioRecordFormat"
+          @stateRecorderProgressChanged="onStateProgressRecorderChanged"
+          @stateRecorderChanged="onStateRecorderChanged"
+          @finishRecord="onFinishRecorder"
+        />
+        <ResizableTextArea
+          v-else-if="!showRichContentEditor"
+          ref="messageInput"
+          v-model="message"
+          class="input"
+          :placeholder="messagePlaceHolder"
+          :min-height="4"
+          :signature="signatureToApply"
+          allow-signature
+          :send-with-signature="sendWithSignature"
+          @typingOff="onTypingOff"
+          @typingOn="onTypingOn"
+          @focus="onFocus"
+          @blur="onBlur"
+        />
+        <WootMessageEditor
+          v-else
+          v-model="message"
+          :editor-id="editorStateId"
+          class="input"
+          :is-private="isOnPrivateNote"
+          :placeholder="messagePlaceHolder"
+          :update-selection-with="updateEditorSelectionWith"
+          :min-height="4"
+          enable-variables
+          :variables="messageVariables"
+          :signature="signatureToApply"
+          allow-signature
+          :channel-type="channelType"
+          @typingOff="onTypingOff"
+          @typingOn="onTypingOn"
+          @focus="onFocus"
+          @blur="onBlur"
+          @toggleUserMention="toggleUserMention"
+          @toggleCannedMenu="toggleCannedMenu"
+          @toggleVariablesMenu="toggleVariablesMenu"
+          @clearSelection="clearEditorSelection"
+        />
+      </div>
+      <div
+        v-if="hasAttachments"
+        class="attachment-preview-box"
+        @paste="onPaste"
+      >
+        <AttachmentPreview
+          class="flex-col mt-4"
+          :attachments="attachedFiles"
+          @removeAttachment="removeAttachment"
+        />
+      </div>
+      <MessageSignatureMissingAlert
+        v-if="isSignatureEnabledForInbox && !isSignatureAvailable"
       />
-      <ReplyEmailHead
-        v-if="showReplyHead"
-        :cc-emails.sync="ccEmails"
-        :bcc-emails.sync="bccEmails"
-        :to-emails.sync="toEmails"
+      <ReplyBottomPanel
+        :conversation-id="conversationId"
+        :enable-multiple-file-upload="enableMultipleFileUpload"
+        :has-whatsapp-templates="hasWhatsappTemplates"
+        :inbox="inbox"
+        :is-on-private-note="isOnPrivateNote"
+        :is-recording-audio="isRecordingAudio"
+        :is-send-disabled="isReplyButtonDisabled"
+        :mode="replyType"
+        :on-file-upload="onFileUpload"
+        :on-send="onSendReply"
+        :recording-audio-duration-text="recordingAudioDurationText"
+        :recording-audio-state="recordingAudioState"
+        :send-button-text="replyButtonLabel"
+        :show-audio-recorder="showAudioRecorder"
+        :show-editor-toggle="isAPIInbox && !isOnPrivateNote"
+        :show-emoji-picker="showEmojiPicker"
+        :show-file-upload="showFileUpload"
+        :toggle-audio-recorder-play-pause="toggleAudioRecorderPlayPause"
+        :toggle-audio-recorder="toggleAudioRecorder"
+        :toggle-emoji-picker="toggleEmojiPicker"
+        :message="message"
+        :portal-slug="connectedPortalSlug"
+        :new-conversation-modal-active="newConversationModalActive"
+        @selectWhatsappTemplate="openWhatsappTemplateModal"
+        @toggleEditor="toggleRichContentEditor"
+        @replaceText="replaceText"
+        @toggleInsertArticle="toggleInsertArticle"
       />
-      <WootAudioRecorder
-        v-if="showAudioRecorderEditor"
-        ref="audioRecorderInput"
-        :audio-record-format="audioRecordFormat"
-        @stateRecorderProgressChanged="onStateProgressRecorderChanged"
-        @stateRecorderChanged="onStateRecorderChanged"
-        @finishRecord="onFinishRecorder"
+      <WhatsappTemplates
+        :inbox-id="inbox.id"
+        :show="showWhatsAppTemplatesModal"
+        @close="hideWhatsappTemplatesModal"
+        @onSend="onSendWhatsAppReply"
+        @cancel="hideWhatsappTemplatesModal"
       />
-      <ResizableTextArea
-        v-else-if="!showRichContentEditor"
-        ref="messageInput"
-        v-model="message"
-        class="input"
-        :placeholder="messagePlaceHolder"
-        :min-height="4"
-        :signature="signatureToApply"
-        allow-signature
-        :send-with-signature="sendWithSignature"
-        @typingOff="onTypingOff"
-        @typingOn="onTypingOn"
-        @focus="onFocus"
-        @blur="onBlur"
-      />
-      <WootMessageEditor
-        v-else
-        v-model="message"
-        :editor-id="editorStateId"
-        class="input"
-        :is-private="isOnPrivateNote"
-        :placeholder="messagePlaceHolder"
-        :update-selection-with="updateEditorSelectionWith"
-        :min-height="4"
-        enable-variables
-        :variables="messageVariables"
-        :signature="signatureToApply"
-        allow-signature
-        :channel-type="channelType"
-        @typingOff="onTypingOff"
-        @typingOn="onTypingOn"
-        @focus="onFocus"
-        @blur="onBlur"
-        @toggleUserMention="toggleUserMention"
-        @toggleCannedMenu="toggleCannedMenu"
-        @toggleVariablesMenu="toggleVariablesMenu"
-        @clearSelection="clearEditorSelection"
-      />
-    </div>
-    <div v-if="hasAttachments" class="attachment-preview-box" @paste="onPaste">
-      <AttachmentPreview
-        class="flex-col mt-4"
-        :attachments="attachedFiles"
-        @removeAttachment="removeAttachment"
-      />
-    </div>
-    <MessageSignatureMissingAlert
-      v-if="isSignatureEnabledForInbox && !isSignatureAvailable"
-    />
-    <ReplyBottomPanel
-      :conversation-id="conversationId"
-      :enable-multiple-file-upload="enableMultipleFileUpload"
-      :has-whatsapp-templates="hasWhatsappTemplates"
-      :inbox="inbox"
-      :is-on-private-note="isOnPrivateNote"
-      :is-recording-audio="isRecordingAudio"
-      :is-send-disabled="isReplyButtonDisabled"
-      :mode="replyType"
-      :on-file-upload="onFileUpload"
-      :on-send="onSendReply"
-      :recording-audio-duration-text="recordingAudioDurationText"
-      :recording-audio-state="recordingAudioState"
-      :send-button-text="replyButtonLabel"
-      :show-audio-recorder="showAudioRecorder"
-      :show-editor-toggle="isAPIInbox && !isOnPrivateNote"
-      :show-emoji-picker="showEmojiPicker"
-      :show-file-upload="showFileUpload"
-      :toggle-audio-recorder-play-pause="toggleAudioRecorderPlayPause"
-      :toggle-audio-recorder="toggleAudioRecorder"
-      :toggle-emoji-picker="toggleEmojiPicker"
-      :message="message"
-      :portal-slug="connectedPortalSlug"
-      :new-conversation-modal-active="newConversationModalActive"
-      @selectWhatsappTemplate="openWhatsappTemplateModal"
-      @toggleEditor="toggleRichContentEditor"
-      @replaceText="replaceText"
-      @toggleInsertArticle="toggleInsertArticle"
-    />
-    <WhatsappTemplates
-      :inbox-id="inbox.id"
-      :show="showWhatsAppTemplatesModal"
-      @close="hideWhatsappTemplatesModal"
-      @onSend="onSendWhatsAppReply"
-      @cancel="hideWhatsappTemplatesModal"
-    />
 
-    <woot-confirm-modal
-      ref="confirmDialog"
-      :title="$t('CONVERSATION.REPLYBOX.UNDEFINED_VARIABLES.TITLE')"
-      :description="undefinedVariableMessage"
-    />
+      <woot-confirm-modal
+        ref="confirmDialog"
+        :title="$t('CONVERSATION.REPLYBOX.UNDEFINED_VARIABLES.TITLE')"
+        :description="undefinedVariableMessage"
+      />
+    </div>
   </div>
-</div>
 </template>
 
 <style lang="scss" scoped>
@@ -1274,7 +1278,7 @@ export default {
   @apply relative py-0 px-4 -mt-px border-t border-solid border-slate-50 dark:border-slate-700;
 
   textarea {
-    @apply shadow-none border-transparent bg-transparent m-0 max-h-60 min-h-[3rem] pt-4 pb-0 px-0 resize-none;
+    @apply text-sm shadow-none border-transparent bg-transparent m-0 max-h-60 min-h-[3rem] pt-4 pb-0 px-0 resize-none;
   }
 }
 

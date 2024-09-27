@@ -461,6 +461,7 @@ export default {
       :banner-message="replyWindowBannerMessage"
       :href-link="replyWindowLink"
       :href-link-text="replyWindowLinkText"
+      class="text-slate-100 text-sm"
     />
     <div class="flex justify-end">
       <woot-button

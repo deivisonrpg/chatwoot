@@ -21,7 +21,7 @@ export default {
     size="tiny"
     variant="smooth"
     color-scheme="secondary"
-    class="layout-switch__container"
+    class="layout-switch__container flax-shrink-0"
     :class="{ expanded: isOnExpandedLayout }"
     @click="toggle"
   />

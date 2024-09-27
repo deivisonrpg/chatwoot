@@ -2,7 +2,7 @@
   "GENERAL_SETTINGS": {
     "TITLE": "Configurações da conta",
     "SUBMIT": "Atualizar configurações",
-    "BACK": "Anterior",
+    "BACK": "Voltar",
     "DISMISS": "Recusar",
     "UPDATE": {
       "ERROR": "Não foi possível atualizar as configurações, tente novamente!",

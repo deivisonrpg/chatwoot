@@ -20,7 +20,10 @@ import { BUS_EVENTS } from 'shared/constants/busEvents';
 import { ACCOUNT_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
 import { LOCAL_STORAGE_KEYS } from 'dashboard/constants/localStorage';
 import { LocalStorage } from 'shared/helpers/localStorage';
-import { getDayDifferenceFromNow, getHoursDifferenceFromNow } from 'shared/helpers/DateHelper';
+import {
+  getDayDifferenceFromNow,
+  getHoursDifferenceFromNow,
+} from 'shared/helpers/DateHelper';
 import * as Sentry from '@sentry/browser';
 
 export default {

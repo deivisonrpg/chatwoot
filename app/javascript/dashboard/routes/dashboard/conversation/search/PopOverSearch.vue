@@ -37,11 +37,11 @@ export default {
     >
       <woot-sidemenu-icon
         size="tiny"
-        class="relative top-0 ltr:-ml-1.5 rtl:-mr-1.5"
+        class="relative top-0 ltr:-ml-1.5 rtl:-mr-1.5 flex-shrink-0"
       />
       <router-link
         :to="searchUrl"
-        class="inline-flex items-center flex-1 h-6 gap-1 px-2 py-0 text-left rounded-md search-link rtl:mr-3 rtl:text-right bg-slate-25 dark:bg-slate-800"
+        class="inline-flex items-center flex-1 h-6 gap-1 px-2 py-0 text-left rounded-md search-link rtl:mr-3 rtl:text-right bg-slate-25 dark:bg-slate-800 w-0"
       >
         <div class="flex">
           <fluent-icon
@@ -56,10 +56,12 @@ export default {
           {{ $t('CONVERSATION.SEARCH_MESSAGES') }}
         </p>
       </router-link>
-      <SwitchLayout
-        :is-on-expanded-layout="isOnExpandedLayout"
-        @toggle="$emit('toggleConversationLayout')"
-      />
+      <div class="!hidden lg:!block">
+        <SwitchLayout
+          :is-on-expanded-layout="isOnExpandedLayout"
+          @toggle="$emit('toggleConversationLayout')"
+        />
+      </div>
     </div>
   </div>
 </template>

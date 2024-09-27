@@ -53,12 +53,17 @@ export default {
       const beforeSlot = this.$slots.before ? 100 : 0;
       const labelContainer = this.$refs.labelContainer;
       if (!labelContainer) return;
-
       const labels = Array.from(labelContainer.querySelectorAll('.label'));
       let labelOffset = 0;
       this.showExpandLabelButton = false;
       labels.forEach((label, index) => {
-        labelOffset += label.offsetWidth + 8;
+        if (label.offsetWidth === 0) {
+          label.classList.remove('hidden');
+          labelOffset += label.offsetWidth + 8;
+          label.classList.add('hidden');
+        } else {
+          labelOffset += label.offsetWidth + 8;
+        }
         if (labelOffset < labelContainer.clientWidth - 16 - beforeSlot) {
           this.labelPosition = index;
         } else {
@@ -71,11 +76,7 @@ export default {
 </script>
 
 <template>
-  <div
-    v-if="activeLabels.length || $slots.before"
-    ref="labelContainer"
-    v-resize="computeVisibleLabelPosition"
-  >
+  <div v-if="activeLabels.length || $slots.before" ref="labelContainer">
     <div
       class="flex items-end flex-shrink min-w-0 gap-y-1"
       :class="{ 'h-auto overflow-visible flex-row flex-wrap': showAllLabels }"

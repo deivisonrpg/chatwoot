@@ -35,15 +35,15 @@ export default {
       default: true,
     },
   },
-  data: () => {
-    return {
-      previewMessage: null,
-    };
-  },
   setup() {
     const { getPlainText } = useMessageFormatter();
     return {
       getPlainText,
+    };
+  },
+  data: () => {
+    return {
+      previewMessage: null,
     };
   },
   computed: {
@@ -109,36 +109,38 @@ export default {
 </script>
 
 <template>
-  <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+  <div
+    class="flex flex-row justify-start gap-x-1 items-center overflow-hidden text-ellipsis whitespace-nowrap"
+  >
     <template v-if="showMessageType">
       <fluent-icon
         v-if="isMessagePrivate"
         size="16"
-        class="-mt-0.5 align-middle text-slate-600 dark:text-slate-300 inline-block"
+        class="-mt-0.5 align-middle text-slate-600 dark:text-slate-300 inline-block flex-shrink-0"
         icon="lock-closed"
       />
       <fluent-icon
         v-else-if="messageByAgent"
         size="16"
-        class="-mt-0.5 align-middle text-slate-600 dark:text-slate-300 inline-block"
+        class="-mt-0.5 align-middle text-slate-600 dark:text-slate-300 inline-block flex-shrink-0"
         icon="arrow-reply"
       />
       <fluent-icon
         v-else-if="isMessageAnActivity"
         size="16"
-        class="-mt-0.5 align-middle text-slate-600 dark:text-slate-300 inline-block"
+        class="-mt-0.5 align-middle text-slate-600 dark:text-slate-300 inline-block flex-shrink-0"
         icon="info"
       />
     </template>
     <span v-if="message.content && isMessageSticker">
       <fluent-icon
         size="16"
-        class="-mt-0.5 align-middle inline-block text-slate-600 dark:text-slate-300"
+        class="-mt-0.5 align-middle inline-block text-slate-600 dark:text-slate-300 flex-shrink-0"
         icon="image"
       />
       {{ $t('CHAT_LIST.ATTACHMENTS.image.CONTENT') }}
     </span>
-    <span v-else-if="message.content">
+    <span v-else-if="message.content" class="text-ellipsis overflow-hidden">
       {{ parsedLastMessage }}
     </span>
     <span v-else-if="message.attachments">
@@ -146,10 +148,12 @@ export default {
         <fluent-icon
           v-if="attachmentIcon && showMessageType"
           size="16"
-          class="-mt-0.5 align-middle inline-block text-slate-600 dark:text-slate-300"
+          class="-mt-0.5 align-middle inline-block text-slate-600 dark:text-slate-300 flex-shrink-0"
           :icon="attachmentIcon"
         />
-        {{ $t(`${attachmentMessageContent}`) }}
+        <span class="text-ellipsis overflow-hidden">
+          {{ $t(`${attachmentMessageContent}`) }}
+        </span>
       </div>
       <div v-else>
         <div v-for="attachment in attachments" :key="attachment.id">

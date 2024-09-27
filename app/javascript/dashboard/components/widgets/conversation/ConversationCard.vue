@@ -261,38 +261,40 @@ export default {
       size="40px"
     />
     <div
-      class="px-0 py-3 border-b group-hover:border-transparent flex-1 border-slate-50 dark:border-slate-800/75 w-[calc(100%-40px)]"
+      class="px-0 py-3 border-b group-hover:border-transparent flex-1 border-slate-50 dark:border-slate-800/75 max-w-[calc(100%-40px)]"
     >
-      <div class="flex justify-between">
+      <div class="flex flex-col md:flex-row">
         <InboxName v-if="showInboxName" :inbox="inbox" />
-        <div class="flex gap-2 ml-2 rtl:mr-2 rtl:ml-0">
+        <div
+          v-if="showAssignee && assignee.name"
+          class="flex gap-0.5 ml-2 items-center max-w-[calc(100%-70px)] md:max-w-[calc(100%-150px)]"
+        >
+          <fluent-icon
+            icon="person"
+            size="12"
+            class="text-slate-500 dark:text-slate-400 flex-shrink-0"
+          />
           <span
-            v-if="showAssignee && assignee.name"
-            class="text-slate-500 dark:text-slate-400 text-xs font-medium leading-3 py-0.5 px-0 inline-flex text-ellipsis overflow-hidden whitespace-nowrap"
+            class="text-slate-500 dark:text-slate-400 text-xs font-medium leading-3 py-0.5 px-0 text-ellipsis overflow-hidden whitespace-nowrap min-w-0"
           >
-            <fluent-icon
-              icon="person"
-              size="12"
-              class="text-slate-500 dark:text-slate-400"
-            />
             {{ assignee.name }}
           </span>
-          <PriorityMark :priority="chat.priority" />
         </div>
       </div>
       <h4
         class="conversation--user text-sm my-0 mx-2 capitalize pt-0.5 text-ellipsis font-medium overflow-hidden whitespace-nowrap w-[calc(100%-70px)] text-slate-900 dark:text-slate-100"
       >
+        <PriorityMark :priority="chat.priority" class="mr-1" />
         {{ currentContact.name }}
       </h4>
       <MessagePreview
         v-if="lastMessageInChat"
         :message="lastMessageInChat"
-        class="conversation--message my-0 mx-2 leading-6 h-6 max-w-[96%] w-[16.875rem] text-sm text-slate-700 dark:text-slate-200"
+        class="conversation--message my-0 mx-2 leading-6 h-6 max-w-[85%] text-sm text-slate-700 dark:text-slate-200"
       />
       <p
         v-else
-        class="conversation--message text-slate-700 dark:text-slate-200 text-sm my-0 mx-2 leading-6 h-6 max-w-[96%] w-[16.875rem] overflow-hidden text-ellipsis whitespace-nowrap"
+        class="conversation--message text-slate-700 dark:text-slate-200 text-sm my-0 mx-2 leading-6 h-6 max-w-[85%] overflow-hidden text-ellipsis whitespace-nowrap"
       >
         <fluent-icon
           size="16"
@@ -317,9 +319,10 @@ export default {
         </span>
       </div>
       <CardLabels
+        v-if="chat.labels.length > 0"
         :conversation-id="chat.id"
         :conversation-labels="chat.labels"
-        class="mt-0.5 mx-2 mb-0"
+        class="mt-0.5 mx-2 mb-0 overflow-y-hidden"
       >
         <template v-if="hasSlaPolicyId" #before>
           <SLACardLabel :chat="chat" class="ltr:mr-1 rtl:ml-1" />

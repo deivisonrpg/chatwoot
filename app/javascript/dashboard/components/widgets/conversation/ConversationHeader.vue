@@ -132,14 +132,14 @@ export default {
     class="flex flex-col items-center justify-between px-4 py-2 bg-white border-b dark:bg-slate-900 border-slate-50 dark:border-slate-800/50 md:flex-row"
   >
     <div
-      class="flex flex-col items-center justify-center flex-1 w-full min-w-0"
+      class="flex flex-col items-start md:items-center justify-center flex-1 w-full min-w-0"
       :class="isInboxView ? 'sm:flex-row' : 'md:flex-row'"
     >
       <div class="flex items-center justify-start max-w-full min-w-0 w-fit">
         <BackButton
           v-if="showBackButton"
           :back-url="backButtonUrl"
-          class="ltr:ml-0 rtl:mr-0 rtl:ml-4"
+          class="ltr:ml-0 rtl:mr-0 rtl:ml-4 mr-2"
         />
         <Thumbnail
           :src="currentContact.thumbnail"
@@ -185,7 +185,7 @@ export default {
               {{ snoozedDisplayText }}
             </span>
             <woot-button
-              class="p-0"
+              class="p-0 hidden md:block"
               size="small"
               variant="link"
               @click="$emit('contactPanelToggle')"

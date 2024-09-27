@@ -93,8 +93,11 @@ export default {
         {{ $t('CONVERSATION.REPLYBOX.PRIVATE_NOTE') }}
       </woot-button>
     </div>
-    <div class="flex items-center mx-4 my-0">
-      <div v-if="isMessageLengthReachingThreshold" class="text-xs">
+    <div
+      v-if="isMessageLengthReachingThreshold"
+      class="flex items-center mx-4 my-0"
+    >
+      <div class="text-xs">
         <span :class="charLengthClass">
           {{ characterLengthWarning }}
         </span>

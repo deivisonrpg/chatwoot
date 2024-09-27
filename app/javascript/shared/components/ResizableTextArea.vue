@@ -86,7 +86,7 @@ export default {
         this.resizeTextarea();
         this.setCursor();
       } else {
-        this.focus();
+        //this.focus();
       }
     });
   },

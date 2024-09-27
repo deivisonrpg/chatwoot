@@ -35,6 +35,8 @@ const buttonStyleClass = props.compact
     @click.capture="goBack"
   >
     <fluent-icon icon="chevron-left" class="-ml-1" />
-    {{ buttonLabel || $t('GENERAL_SETTINGS.BACK') }}
+    <div class="hidden md:block">
+      {{ buttonLabel || $t('GENERAL_SETTINGS.BACK') }}
+    </div>
   </button>
 </template>
