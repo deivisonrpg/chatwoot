@@ -16,6 +16,18 @@ const getLastNonActivityMessage = (messageInStore, messageFromAPI) => {
   return messageInStore || messageFromAPI;
 };
 
+export const filterDuplicateIdMessages = (messages = []) => {
+  const messagesWithoutDuplicateId = [];
+  const messageIdMap = {};
+  messages.forEach(message => {
+    if (!messageIdMap[message.id]) {
+      messagesWithoutDuplicateId.push(message);
+      messageIdMap[message.id] = true;
+    }
+  });
+  return messagesWithoutDuplicateId;
+};
+
 /**
  * Filters out duplicate source messages from an array of messages.
  * @param {Array} messages - The array of messages to filter.

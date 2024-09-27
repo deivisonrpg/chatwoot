@@ -23,6 +23,7 @@ import { calculateScrollTop } from './helpers/scrollTopCalculationHelper';
 import { LocalStorage } from 'shared/helpers/localStorage';
 import {
   filterDuplicateSourceMessages,
+  filterDuplicateIdMessages,
   getReadMessages,
   getUnreadMessages,
 } from 'dashboard/helper/conversationHelper';
@@ -149,7 +150,7 @@ export default {
       if (this.isAWhatsAppChannel) {
         return filterDuplicateSourceMessages(messages);
       }
-      return messages;
+      return filterDuplicateIdMessages(messages);
     },
     readMessages() {
       return getReadMessages(
