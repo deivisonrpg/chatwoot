@@ -13,6 +13,7 @@ import { isOnOnboardingView } from 'v3/helpers/RouteHelper';
 import {
   registerSubscription,
   verifyServiceWorkerExistence,
+  requestPushPermissions,
 } from './helper/pushHelper';
 import ReconnectService from 'dashboard/helper/ReconnectService';
 
@@ -98,6 +99,8 @@ export default {
       this.latestChatwootVersion = latestChatwootVersion;
       vueActionCable.init(pubsubToken);
       this.reconnectService = new ReconnectService(this.$store, router);
+
+      requestPushPermissions(() => {});
 
       verifyServiceWorkerExistence(registration =>
         registration.pushManager.getSubscription().then(subscription => {
