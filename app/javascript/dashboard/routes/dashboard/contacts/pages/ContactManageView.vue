@@ -63,7 +63,7 @@ export default {
 
 <template>
   <div
-    class="flex justify-between flex-col h-full m-0 flex-1 bg-white dark:bg-slate-900"
+    class="flex justify-between flex-col h-full m-0 flex-1 bg-white dark:bg-slate-900 max-w-full"
   >
     <SettingsHeader
       button-route="new"
