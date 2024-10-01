@@ -232,7 +232,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_220747) do
     t.text "content"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "user_id"
   end
 
   create_table "categories", force: :cascade do |t|
