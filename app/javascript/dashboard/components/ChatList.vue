@@ -261,9 +261,9 @@ export default {
         unassigned: 'unAssignedCount',
       };
 
-      if (this.currentUserRole === 'administrator') {
+      /*if (this.currentUserRole === 'administrator') {
         ASSIGNEE_TYPE_TAB_KEYS.participating = 'participatingCount';
-      }
+      }*/
 
       if (
         this.currentUserRole === 'administrator' ||
