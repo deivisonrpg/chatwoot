@@ -44,6 +44,16 @@
   @apply hidden;
 }
 
+/* Firefox */
+* {
+  scrollbar-width: thin;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
 @layer base {
 
   // scss-lint:disable PropertySortOrder
