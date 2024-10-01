@@ -110,6 +110,9 @@ export default {
 
 <template>
   <div class="message-text__wrap" :class="attachmentTypeClasses">
+    <div v-if="isImageError" class="text-center text-red-500 font-bold">
+      <span>Falha ao carregar o arquivo</span>
+    </div>
     <img
       v-if="isImage && !isImageError"
       class="bg-woot-200 dark:bg-woot-900"
