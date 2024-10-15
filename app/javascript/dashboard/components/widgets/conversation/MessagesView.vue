@@ -543,7 +543,7 @@ export default {
           <img
             class="w-6 ltr:ml-2 rtl:mr-2"
             src="~dashboard/assets/images/typing.gif"
-            alt="Someone is typing"
+            alt="Alguém está digitando"
           />
         </div>
       </div>

@@ -20,7 +20,7 @@ export default {
         >
           <img
             src="~widget/assets/images/typing.gif"
-            alt="Agent is typing a message"
+            alt="O agente está digitando uma mensagem"
           />
         </div>
       </div>
