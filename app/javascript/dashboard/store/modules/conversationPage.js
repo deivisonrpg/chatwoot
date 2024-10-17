@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import * as types from '../mutation-types';
 
 const state = {
@@ -43,15 +42,24 @@ export const actions = {
 
 export const mutations = {
   [types.default.SET_CURRENT_PAGE]: ($state, { filter, page }) => {
-    Vue.set($state.currentPage, filter, page);
+    $state.currentPage = {
+      ...$state.currentPage,
+      [filter]: page,
+    };
   },
   [types.default.SET_CONVERSATION_END_REACHED]: ($state, { filter }) => {
     if (filter === 'all') {
-      Vue.set($state.hasEndReached, 'unassigned', true);
-      Vue.set($state.hasEndReached, 'me', true);
-      Vue.set($state.hasEndReached, 'participating', true);
+      $state.hasEndReached = {
+        ...$state.hasEndReached,
+        unassigned: true,
+        me: true,
+        participating: true,
+      };
     }
-    Vue.set($state.hasEndReached, filter, true);
+    $state.hasEndReached = {
+      ...$state.hasEndReached,
+      [filter]: true,
+    };
   },
   [types.default.CLEAR_CONVERSATION_PAGE]: $state => {
     $state.currentPage = {

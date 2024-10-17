@@ -65,7 +65,7 @@ const hasAppliedFiltersOrActiveFolders = computed(() => {
       </span>
     </div>
     <div class="flex items-center gap-1">
-      <div v-if="hasAppliedFilters && !hasActiveFolders">
+      <template v-if="hasAppliedFilters && !hasActiveFolders">
         <woot-button
           v-tooltip.top-end="$t('FILTER.CUSTOM_VIEWS.ADD.SAVE_BUTTON')"
           size="tiny"
@@ -82,8 +82,8 @@ const hasAppliedFiltersOrActiveFolders = computed(() => {
           icon="dismiss-circle"
           @click="emit('resetFilters')"
         />
-      </div>
-      <div v-if="hasActiveFolders">
+      </template>
+      <template v-if="hasActiveFolders">
         <woot-button
           v-tooltip.top-end="$t('FILTER.CUSTOM_VIEWS.EDIT.EDIT_BUTTON')"
           size="tiny"
@@ -100,7 +100,7 @@ const hasAppliedFiltersOrActiveFolders = computed(() => {
           icon="delete"
           @click="emit('deleteFolders')"
         />
-      </div>
+      </template>
       <woot-button
         v-else
         v-show="currentUserRole != 'agent'"
@@ -113,7 +113,7 @@ const hasAppliedFiltersOrActiveFolders = computed(() => {
       />
       <ConversationBasicFilter
         v-if="!hasAppliedFiltersOrActiveFolders"
-        @changeFilter="onBasicFilterChange"
+        @change-filter="onBasicFilterChange"
       />
     </div>
   </div>

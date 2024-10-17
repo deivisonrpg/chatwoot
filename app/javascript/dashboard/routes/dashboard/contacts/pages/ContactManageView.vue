@@ -94,8 +94,9 @@ export default {
         <div class="lg:w-4/6 w-full overflow-y-auto h-full">
           <woot-tabs :index="selectedTabIndex" @change="onClickTabChange">
             <woot-tabs-item
-              v-for="tab in tabs"
+              v-for="(tab, index) in tabs"
               :key="tab.key"
+              :index="index"
               :name="tab.name"
               :show-badge="false"
             />
