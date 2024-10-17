@@ -1,5 +1,5 @@
 # Variables
-APP_NAME := deivisonrpg/mm:V3.13.0.2
+APP_NAME := deivisonrpg/mm:V3.13.0.3
 RAILS_ENV ?= development
 
 # Targets
