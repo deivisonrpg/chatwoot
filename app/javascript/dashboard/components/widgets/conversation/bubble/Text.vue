@@ -86,7 +86,7 @@ export default {
     <div
       v-if="!isEmail"
       v-dompurify-html="message"
-      class="text-content md:break-normal break-all"
+      class="text-content md:break-words break-all"
     />
     <div v-else @click="handleClickOnContent">
       <Letter
